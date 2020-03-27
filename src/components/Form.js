@@ -1,4 +1,5 @@
 import React from 'react';
+import M from 'materialize-css';
 
 function Form() {
 	const storeUrl = (url, shorturl) => {
@@ -37,21 +38,25 @@ function Form() {
 			ev.target.elements.url.value = '';
 		} catch (err) {
 			console.log(err);
+			M.toast({
+				html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+				classes: 'error-toast',
+			});
 		}
 	};
 
 	return (
 		<section className='form'>
-			<div class='card'>
-				<div class='card-content'>
+			<div className='card'>
+				<div className='card-content'>
 					<form onSubmit={onSubmit} className='form'>
 						<div className='row'>
 							<div className='col s12'>
 								<div className='input-field'>
-									<input type='url' name='url' className='validate' required />
 									<label className='active' htmlFor='url'>
 										Enter a URL
 									</label>
+									<input type='url' name='url' className='validate' required />
 								</div>
 								<button type='submit' className='btn'>
 									Shorten it
