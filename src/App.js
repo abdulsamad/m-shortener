@@ -1,10 +1,17 @@
 import React from 'react';
 import './scss/App.scss';
+import Navbar from './components/Navbar';
+import Form from './components/Form';
+import List from './components/List';
 
 function App() {
 	return (
 		<div className='App'>
-			<h1>Hello React</h1>
+			<Navbar title='URL Shortener' />
+			<div className='container'>
+				<Form />
+				<List />
+			</div>
 		</div>
 	);
 }

@@ -1,0 +1,32 @@
+@import '~materialize-css';
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+nav {
+	.brand-logo {
+		font-family: Oswald;
+		font-size: 1.8rem;
+		letter-spacing: 1px;
+	}
+}
+
+section {
+	margin-top: 20px;
+
+	&.links-collection {
+		.row {
+			margin: 0;
+		}
+	}
+}
+
+#toast-container {
+	top: auto !important;
+	right: auto !important;
+	bottom: 10%;
+	left: 5%;
+}
+
+.copy-toast .material-icons {
+	color: #0fc515;
+}
