@@ -1,21 +1,31 @@
 @import '~materialize-css';
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import 'mixins';
+@import 'https://fonts.googleapis.com/css2?family=Oswald&display=swap';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
-nav {
+body {
+	background-color: #000000;
+}
+
+.nav-wrapper {
 	.brand-logo {
 		font-family: Oswald;
 		font-size: 1.8rem;
+		margin-left: 5px;
 		letter-spacing: 1px;
 	}
 }
 
 section {
-	margin-top: 20px;
+	margin: 20px 0;
 
 	&.links-collection {
 		.row {
 			margin: 0;
+		}
+
+		.material-icons {
+			margin: 0 5px;
 		}
 	}
 }
@@ -25,8 +35,14 @@ section {
 	right: auto !important;
 	bottom: 10%;
 	left: 5%;
-}
 
-.copy-toast .material-icons {
-	color: #0fc515;
+	@include mobile {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		min-width: 50%;
+		max-width: 100%;
+		bottom: 50px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 }
