@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import M from 'materialize-css';
-import { Button, CardPanel, Col, Row } from 'react-materialize';
+import { Button, CardPanel, Col, Icon, Row } from 'react-materialize';
+import Copy from './Copy';
 
 function Form() {
+	const [shortenURL, setShortenURL] = useState('');
+
 	const storeUrl = (url, shorturl, stats) => {
 		const objStr = { url, shorturl, stats, id: shorturl.replace('https://is.gd/', '') };
 
@@ -23,12 +26,14 @@ function Form() {
 		try {
 			const url = new URL(ev.target.elements.url.value);
 			const stats = ev.target.elements.stats.checked;
+
 			if (stats) {
 				fetch(`https://is.gd/create.php?format=json&url=${url}&logstats=1`)
 					.then(res => {
 						return res.json();
 					})
 					.then(res => {
+						setShortenURL(res.shorturl);
 						storeUrl(url.href, res.shorturl, stats);
 					})
 					.catch(err => {
@@ -40,6 +45,7 @@ function Form() {
 						return res.json();
 					})
 					.then(res => {
+						setShortenURL(res.shorturl);
 						storeUrl(url.href, res.shorturl, stats);
 					})
 					.catch(err => {
@@ -57,20 +63,29 @@ function Form() {
 		}
 	};
 
+	const shareShortLink = () => {
+		const shareData = {
+			title: `Created with ${document.title}`,
+			text: 'Check this out!',
+			url: shortenURL,
+		};
+		navigator.share(shareData);
+	};
+
 	return (
 		<section className='form-container'>
 			<CardPanel>
-				<form onSubmit={onSubmit} className='form'>
-					<Row>
-						<Col s={12}>
+				<Row>
+					<Col s={12}>
+						<form onSubmit={onSubmit} className='form'>
 							<div className='input-field'>
 								<label className='active' htmlFor='url'>
-									Enter a URL
+									Enter a Long URL
 								</label>
 								<input type='url' name='url' className='validate' required />
 							</div>
 							<Row>
-								<Col s={4}>
+								<Col s={12}>
 									<div className='switch'>
 										<label>
 											<span>Show Stats</span>
@@ -80,7 +95,6 @@ function Form() {
 										</label>
 									</div>
 								</Col>
-								<Col s={6}></Col>
 							</Row>
 							<Button
 								node='button'
@@ -89,11 +103,38 @@ function Form() {
 									marginRight: '5px',
 								}}
 								waves='light'>
-								Shorten it
+								<Icon left>content_cut</Icon>
+								<span>Shorten It</span>
 							</Button>
-						</Col>
-					</Row>
-				</form>
+						</form>
+						{shortenURL && (
+							<div>
+								<div className='input-field'>
+									<input type='url' name='shortenurl' value={shortenURL} disabled />
+								</div>
+								{navigator.share && (
+									<Button
+										small
+										onClick={shareShortLink}
+										node='button'
+										style={{
+											marginRight: '5px',
+										}}
+										waves='light'>
+										<Icon left>share</Icon>
+										<span>Share</span>
+									</Button>
+								)}
+								<Copy
+									copyText={shortenURL}
+									classes='btn btn-small'
+									btnText='Copy'
+									title='Copy ShortURL to Clipboard'
+								/>
+							</div>
+						)}
+					</Col>
+				</Row>
 			</CardPanel>
 		</section>
 	);
