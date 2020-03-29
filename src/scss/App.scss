@@ -39,6 +39,32 @@ section {
 	}
 }
 
+.import-file-input {
+	color: transparent;
+
+	&::-webkit-file-upload-button {
+		visibility: hidden;
+	}
+	&::before {
+		content: 'Import';
+		color: $secondary-color;
+		display: inline-block;
+		background: transparent;
+		border: none;
+		// padding: 5px	 8px;
+		outline: none;
+		white-space: nowrap;
+		-webkit-user-select: none;
+		cursor: pointer;
+	}
+	&:hover::before {
+		border-color: black;
+	}
+	&:active {
+		outline: 0;
+	}
+}
+
 /* Materialize Reset */
 
 #list-dropdown {
