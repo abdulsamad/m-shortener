@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Collection, CollectionItem, Col, Icon, Pagination, Row } from 'react-materialize';
+import {
+	Collection,
+	CollectionItem,
+	Col,
+	Dropdown,
+	Icon,
+	Pagination,
+	Row,
+} from 'react-materialize';
 import Modal from './Modal';
-import M from 'materialize-css';
+import Copy from './Copy';
 
 function List() {
 	const step = 10;
@@ -30,24 +38,44 @@ function List() {
 		}
 	}, [pageStart, pageEnd, linksCollection]);
 
-	const copyShortLink = text => {
-		const textarea = document.createElement('textarea');
-		textarea.value = text;
-		document.body.appendChild(textarea);
-		textarea.select();
-		document.execCommand('copy');
-		document.body.removeChild(textarea);
-
-		M.toast({
-			html: `<i class='material-icons green-text'>check_circle</i> &nbsp; Link Copied`,
-			classes: 'copy-toast',
-		});
-	};
-
 	return (
 		<section className='links-collection z-depth-2 hoverable'>
 			{urlList.length > 0 && (
-				<Collection header={<h6>Shorten URL's</h6>}>
+				<Collection
+					header={
+						<div className='list-head'>
+							<div className='heading'>Shorten Links</div>
+							<Dropdown
+								id='list-dropdown'
+								options={{
+									alignment: 'left',
+									autoTrigger: true,
+									closeOnClick: true,
+									constrainWidth: true,
+									container: null,
+									coverTrigger: true,
+									hover: false,
+									inDuration: 150,
+									onCloseEnd: null,
+									onCloseStart: null,
+									onOpenEnd: null,
+									onOpenStart: null,
+									outDuration: 250,
+								}}
+								trigger={
+									<a href='#!'>
+										<Icon right>more_vert</Icon>
+									</a>
+								}>
+								<a href='#!'>
+									<Icon>import_export</Icon> Import
+								</a>
+								<a href='#!'>
+									<Icon>cloud_download</Icon> Export
+								</a>
+							</Dropdown>
+						</div>
+					}>
 					{urlList.map((link, index) => (
 						<CollectionItem key={index}>
 							<Row>
@@ -56,13 +84,12 @@ function List() {
 									<span className='truncate blue-text'>{link.url}</span>
 								</Col>
 								<Col s={1}>
-									<a
-										href='#!'
-										className='secondary-content'
-										onClick={() => copyShortLink(link.shorturl)}
-										title='Copy ShortURL to Clipboard'>
-										<Icon>content_copy</Icon>
-									</a>
+									<Copy
+										copyText={link.shorturl}
+										classes='secondary-content'
+										btnText=''
+										title='Copy ShortURL to Clipboard'
+									/>
 									{link.stats && <Modal id={link.id} shorturl={link.shorturl} url={link.url} />}
 								</Col>
 							</Row>

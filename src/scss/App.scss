@@ -30,6 +30,31 @@ section {
 	}
 }
 
+.list-head {
+	display: flex;
+	justify-content: space-between;
+
+	.heading {
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
+}
+
+/* Materialize Reset */
+
+#list-dropdown {
+	width: auto !important;
+
+	a > i {
+		margin-right: 16px;
+	}
+
+	li > * {
+		display: flex;
+		align-items: center;
+	}
+}
+
 #toast-container {
 	top: auto !important;
 	right: auto !important;
