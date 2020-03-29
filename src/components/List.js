@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-	Collection,
-	CollectionItem,
-	Col,
-	Dropdown,
-	Icon,
-	Pagination,
-	Row,
-} from 'react-materialize';
+import { Collection, CollectionItem, Col, Icon, Pagination, Row } from 'react-materialize';
 import Modal from './Modal';
 import Copy from './Copy';
 
@@ -45,35 +37,6 @@ function List() {
 					header={
 						<div className='list-head'>
 							<div className='heading'>Shorten Links</div>
-							<Dropdown
-								id='list-dropdown'
-								options={{
-									alignment: 'left',
-									autoTrigger: true,
-									closeOnClick: true,
-									constrainWidth: true,
-									container: null,
-									coverTrigger: true,
-									hover: false,
-									inDuration: 150,
-									onCloseEnd: null,
-									onCloseStart: null,
-									onOpenEnd: null,
-									onOpenStart: null,
-									outDuration: 250,
-								}}
-								trigger={
-									<a href='#!'>
-										<Icon right>more_vert</Icon>
-									</a>
-								}>
-								<a href='#!'>
-									<Icon>import_export</Icon> Import
-								</a>
-								<a href='#!'>
-									<Icon>cloud_download</Icon> Export
-								</a>
-							</Dropdown>
 						</div>
 					}>
 					{urlList.map((link, index) => (
