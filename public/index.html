@@ -3,10 +3,11 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Web site created using create-react-app" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon" sizes="16x16">
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <title>URL Shortener</title>
 </head>
@@ -14,6 +15,14 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
+
+  <script>
+    const isProduction = ('%NODE_ENV%' === 'production');
+
+    if (isProduction && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+    }
+  </script>
 </body>
 
 </html>
