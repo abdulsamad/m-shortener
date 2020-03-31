@@ -1,6 +1,7 @@
 {
 	"name": "url-shortener-is.gd",
-	"version": "0.1.0",
+	"version": "1.0.0",
+	"author": "Abdul Samad",
 	"private": true,
 	"homepage": "https://asamad05.github.io/url_shortener-is.gd/",
 	"dependencies": {
