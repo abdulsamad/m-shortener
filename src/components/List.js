@@ -16,6 +16,7 @@ import Copy from './Copy';
 function List() {
 	const step = 10;
 	const linksCollection = localStorage.getItem('linksCollection');
+	const linkHash = 'e5a9cc5a85b282aec3acbc5f95bd009a.json';
 	const [urlList, seturlList] = useState([]);
 	const [pageStart, setPageStart] = useState(0);
 	const [pageEnd, setPageEnd] = useState(step);
@@ -43,12 +44,17 @@ function List() {
 	const exportData = () => {
 		const link = document.createElement('a');
 		const data = localStorage.getItem('linksCollection');
+
 		if (data) {
 			link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(data);
-			link.download = 'shorten_urls_backup.json';
+			link.download = linkHash;
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);
+
+			M.toast({
+				html: `<i class='material-icons blue-text'>info</i> &nbsp; Please do not edit or rename the file`,
+			});
 		} else {
 			M.toast({
 				html: `<i class='material-icons red-text'>error</i> &nbsp; Nothing to export`,
@@ -64,7 +70,7 @@ function List() {
 			try {
 				const reader = new FileReader();
 
-				if (file.type === 'application/json') {
+				if (file.type === 'application/json' && file.name === linkHash) {
 					reader.readAsText(file, 'UTF-8');
 					reader.onload = function(ev) {
 						const data = JSON.parse(ev.target.result);
