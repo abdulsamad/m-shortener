@@ -28,9 +28,10 @@ section {
 		}
 	}
 
-	.paste-button {
+	.url:placeholder-shown + .paste-button {
+		display: block !important;
 		position: absolute;
-		right: 5px;
+		right: 0;
 		top: 50%;
 		transform: translateY(-50%);
 	}
