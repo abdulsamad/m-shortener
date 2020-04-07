@@ -27,6 +27,13 @@ section {
 			margin: 0 5px;
 		}
 	}
+
+	.paste-button {
+		position: absolute;
+		right: 5px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
 }
 
 .list-head {

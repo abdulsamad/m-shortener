@@ -20,7 +20,7 @@ function Form() {
 		}
 	};
 
-	const onSubmit = ev => {
+	const onSubmit = (ev) => {
 		ev.preventDefault();
 
 		try {
@@ -29,26 +29,26 @@ function Form() {
 
 			if (stats) {
 				fetch(`https://is.gd/create.php?format=json&url=${url}&logstats=1`)
-					.then(res => {
+					.then((res) => {
 						return res.json();
 					})
-					.then(res => {
+					.then((res) => {
 						setShortenURL(res.shorturl);
 						storeUrl(url.href, res.shorturl, stats);
 					})
-					.catch(err => {
+					.catch((err) => {
 						throw err;
 					});
 			} else {
 				fetch(`https://is.gd/create.php?format=json&url=${url}`)
-					.then(res => {
+					.then((res) => {
 						return res.json();
 					})
-					.then(res => {
+					.then((res) => {
 						setShortenURL(res.shorturl);
 						storeUrl(url.href, res.shorturl, stats);
 					})
-					.catch(err => {
+					.catch((err) => {
 						throw err;
 					});
 			}
@@ -72,6 +72,11 @@ function Form() {
 		navigator.share(shareData);
 	};
 
+	const pasteLongURL = async () => {
+		const text = await navigator.clipboard.readText();
+		document.querySelector('.url').value = text;
+	};
+
 	return (
 		<section className='form-container'>
 			<CardPanel>
@@ -82,7 +87,16 @@ function Form() {
 								<label className='active' htmlFor='url'>
 									Enter a Long URL
 								</label>
-								<input type='url' name='url' className='validate' required />
+								<input
+									type='url'
+									name='url'
+									placeholder='https://mylongurl.com/'
+									className='validate url'
+									required
+								/>
+								<Button flat className='paste-button' waves='light' onClick={pasteLongURL}>
+									<Icon>content_paste</Icon>
+								</Button>
 							</div>
 							<Row>
 								<Col s={12}>
