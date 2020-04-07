@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import M from 'materialize-css';
 import { Button, CardPanel, Col, Icon, Row } from 'react-materialize';
 import Copy from './Copy';
 
 function Form() {
 	const [shortenURL, setShortenURL] = useState('');
+	const urlInput = useRef();
 
 	const storeUrl = (url, shorturl, stats) => {
 		const objStr = { url, shorturl, stats, id: shorturl.replace('https://is.gd/', '') };
@@ -73,8 +74,13 @@ function Form() {
 	};
 
 	const pasteLongURL = async () => {
-		const text = await navigator.clipboard.readText();
-		document.querySelector('.url').value = text;
+		try {
+			const text = await navigator.clipboard.readText();
+			urlInput.current.value = text;
+		} catch (err) {
+			alert('Clipboard API not supported or Clipboard permission not granted.');
+			console.log(err);
+		}
 	};
 
 	return (
@@ -90,11 +96,12 @@ function Form() {
 								<input
 									type='url'
 									name='url'
+									ref={urlInput}
 									placeholder='https://mylongurl.com/'
 									className='validate url'
 									required
 								/>
-								<Button flat className='paste-button' waves='light' onClick={pasteLongURL}>
+								<Button flat className='paste-button hide' waves='light' onClick={pasteLongURL}>
 									<Icon>content_paste</Icon>
 								</Button>
 							</div>
