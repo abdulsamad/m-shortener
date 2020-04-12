@@ -63,7 +63,7 @@ function List() {
 		}
 	};
 
-	const importData = ev => {
+	const importData = (ev) => {
 		const file = ev.target.files[0];
 
 		if (file) {
@@ -72,7 +72,7 @@ function List() {
 
 				if (file.type === 'application/json' && file.name === linkHash) {
 					reader.readAsText(file, 'UTF-8');
-					reader.onload = function(ev) {
+					reader.onload = function (ev) {
 						const data = JSON.parse(ev.target.result);
 						const linksCollection = localStorage.getItem('linksCollection');
 
@@ -206,9 +206,9 @@ function List() {
 						activePage={1}
 						items={totalPages}
 						leftBtn={<Icon>chevron_left</Icon>}
-						maxButtons={totalPages}
+						maxButtons={5}
 						rightBtn={<Icon>chevron_right</Icon>}
-						onSelect={num => {
+						onSelect={(num) => {
 							setPageStart(num * step - step);
 							setPageEnd(num * step);
 						}}
