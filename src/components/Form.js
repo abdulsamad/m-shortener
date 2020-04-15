@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import M from 'materialize-css';
 import { Button, CardPanel, Col, Icon, Row } from 'react-materialize';
 import Copy from './Copy';
+import axios from 'axios';
 
 function Form() {
 	const [shortenURL, setShortenURL] = useState('');
@@ -24,44 +25,46 @@ function Form() {
 	const onSubmit = (ev) => {
 		ev.preventDefault();
 
-		try {
-			const url = new URL(ev.target.elements.url.value);
-			const stats = ev.target.elements.stats.checked;
+		const url = new URL(ev.target.elements.url.value);
+		const stats = ev.target.elements.stats.checked;
 
-			if (stats) {
-				fetch(`https://is.gd/create.php?format=json&url=${url}&logstats=1`)
-					.then((res) => {
-						return res.json();
-					})
-					.then((res) => {
-						setShortenURL(res.shorturl);
-						storeUrl(url.href, res.shorturl, stats);
-					})
-					.catch((err) => {
-						throw err;
+		if (stats) {
+			axios
+				.get(`https://is.gd/create.php?format=json&url=${url}&logstats=1`, {
+					timeout: 5000,
+				})
+				.then((res) => {
+					const { shorturl } = res.data;
+					setShortenURL(shorturl);
+					storeUrl(url.href, shorturl, stats);
+				})
+				.catch((err) => {
+					console.log(err);
+					M.toast({
+						html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+						classes: 'error-toast',
 					});
-			} else {
-				fetch(`https://is.gd/create.php?format=json&url=${url}`)
-					.then((res) => {
-						return res.json();
-					})
-					.then((res) => {
-						setShortenURL(res.shorturl);
-						storeUrl(url.href, res.shorturl, stats);
-					})
-					.catch((err) => {
-						throw err;
+				});
+		} else {
+			axios
+				.get(`https://is.gd/create.php?format=json&url=${url}`, {
+					timeout: 5000,
+				})
+				.then((res) => {
+					const { shorturl } = res.data;
+					setShortenURL(shorturl);
+					storeUrl(url.href, shorturl, stats);
+				})
+				.catch((err) => {
+					console.log(err);
+					M.toast({
+						html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+						classes: 'error-toast',
 					});
-			}
-
-			ev.target.elements.url.value = '';
-		} catch (err) {
-			console.log(err);
-			M.toast({
-				html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-				classes: 'error-toast',
-			});
+				});
 		}
+
+		ev.target.elements.url.value = '';
 	};
 
 	const shareShortLink = () => {
