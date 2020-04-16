@@ -25,7 +25,7 @@ function List() {
 	useEffect(() => {
 		let num = 1;
 
-		if (localStorage.getItem('linksCollection')) {
+		if (linksCollection) {
 			const length = JSON.parse(linksCollection).length;
 
 			while (step * num < length) {
@@ -33,9 +33,6 @@ function List() {
 			}
 
 			setTotalPages(num);
-		}
-
-		if (linksCollection) {
 			const obj = JSON.parse(linksCollection).slice(pageStart, pageEnd);
 			seturlList(obj);
 		}
