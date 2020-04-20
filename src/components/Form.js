@@ -104,7 +104,14 @@ function Form() {
 									className='validate url'
 									required
 								/>
-								<Button flat className='paste-button hide' waves='light' onClick={pasteLongURL}>
+								<Button
+									flat
+									className='paste-button hide'
+									style={{
+										padding: '0',
+									}}
+									waves='light'
+									onClick={pasteLongURL}>
 									<Icon>content_paste</Icon>
 								</Button>
 							</div>
