@@ -16,7 +16,7 @@ import Copy from './Copy';
 function List() {
 	const step = 10;
 	const linksCollection = localStorage.getItem('linksCollection');
-	const linkHash = 'e5a9cc5a85b282aec3acbc5f95bd009a.json';
+	const linkHash = 'e5a9cc5a85b282aec3acbc5f95bd009a';
 	const [urlList, seturlList] = useState([]);
 	const [pageStart, setPageStart] = useState(0);
 	const [pageEnd, setPageEnd] = useState(step);
@@ -40,17 +40,19 @@ function List() {
 
 	const exportData = () => {
 		const link = document.createElement('a');
-		const data = localStorage.getItem('linksCollection');
+		const data = JSON.parse(localStorage.getItem('linksCollection'));
 
 		if (data) {
-			link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(data);
-			link.download = linkHash;
+			data.push({ id: linkHash });
+
+			link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+			link.download = document.domain + '.json';
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);
 
 			M.toast({
-				html: `<i class='material-icons blue-text'>info</i> &nbsp; Please do not edit or rename the file`,
+				html: `<i class='material-icons blue-text'>info</i> &nbsp; Please download your backup and Keep it safe.`,
 			});
 		} else {
 			M.toast({
@@ -67,20 +69,26 @@ function List() {
 			try {
 				const reader = new FileReader();
 
-				if (file.type === 'application/json' && file.name === linkHash) {
+				if (file.type === 'application/json') {
 					reader.readAsText(file, 'UTF-8');
+
 					reader.onload = function (ev) {
 						const data = JSON.parse(ev.target.result);
+						const fileId = data.pop().id;
 						const linksCollection = localStorage.getItem('linksCollection');
 
-						if (linksCollection === null) {
-							localStorage.setItem('linksCollection', JSON.stringify(data));
-						} else {
-							const concatData = data.concat(JSON.parse(linksCollection));
-							localStorage.setItem('linksCollection', JSON.stringify(concatData));
-						}
+						if (fileId === linkHash) {
+							if (linksCollection === null) {
+								localStorage.setItem('linksCollection', JSON.stringify(data));
+							} else {
+								const concatData = data.concat(JSON.parse(linksCollection));
+								localStorage.setItem('linksCollection', JSON.stringify(concatData));
+							}
 
-						window.location.reload();
+							window.location.reload();
+						} else {
+							throw new Error('Not a valid file');
+						}
 					};
 				} else {
 					throw new Error('Not a valid file');
