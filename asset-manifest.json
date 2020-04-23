@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/url_shortener-is.gd/static/css/main.4a49e80d.chunk.css",
-    "main.js": "/url_shortener-is.gd/static/js/main.b3507b8c.chunk.js",
-    "main.js.map": "/url_shortener-is.gd/static/js/main.b3507b8c.chunk.js.map",
+    "main.js": "/url_shortener-is.gd/static/js/main.9882a43e.chunk.js",
+    "main.js.map": "/url_shortener-is.gd/static/js/main.9882a43e.chunk.js.map",
     "runtime-main.js": "/url_shortener-is.gd/static/js/runtime-main.d2fa5e8e.js",
     "runtime-main.js.map": "/url_shortener-is.gd/static/js/runtime-main.d2fa5e8e.js.map",
     "static/js/2.3edab258.chunk.js": "/url_shortener-is.gd/static/js/2.3edab258.chunk.js",
     "static/js/2.3edab258.chunk.js.map": "/url_shortener-is.gd/static/js/2.3edab258.chunk.js.map",
     "index.html": "/url_shortener-is.gd/index.html",
-    "precache-manifest.be327d29fcb52f561387c85a3257bc52.js": "/url_shortener-is.gd/precache-manifest.be327d29fcb52f561387c85a3257bc52.js",
+    "precache-manifest.83c85778ad0372994189c6732bf13df1.js": "/url_shortener-is.gd/precache-manifest.83c85778ad0372994189c6732bf13df1.js",
     "service-worker.js": "/url_shortener-is.gd/service-worker.js",
     "static/css/main.4a49e80d.chunk.css.map": "/url_shortener-is.gd/static/css/main.4a49e80d.chunk.css.map",
     "static/js/2.3edab258.chunk.js.LICENSE.txt": "/url_shortener-is.gd/static/js/2.3edab258.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.d2fa5e8e.js",
     "static/js/2.3edab258.chunk.js",
     "static/css/main.4a49e80d.chunk.css",
-    "static/js/main.b3507b8c.chunk.js"
+    "static/js/main.9882a43e.chunk.js"
   ]
 }
