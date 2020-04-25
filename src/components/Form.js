@@ -120,9 +120,8 @@ function Form() {
 									<div className='switch'>
 										<label>
 											<span>Show Stats</span>
-											<input disabled type='checkbox' name='stats' />
+											<input type='checkbox' name='stats' />
 											<span className='lever'></span>
-											<span>(Coming Soon)</span>
 										</label>
 									</div>
 								</Col>

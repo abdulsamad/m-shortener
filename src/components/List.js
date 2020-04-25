@@ -17,7 +17,7 @@ function List() {
 	const step = 10;
 	const linksCollection = localStorage.getItem('linksCollection');
 	const linkHash = 'e5a9cc5a85b282aec3acbc5f95bd009a';
-	const [urlList, seturlList] = useState([]);
+	const [urlList, setUrlList] = useState([]);
 	const [pageStart, setPageStart] = useState(0);
 	const [pageEnd, setPageEnd] = useState(step);
 	const [totalPages, setTotalPages] = useState(0);
@@ -34,7 +34,8 @@ function List() {
 
 			setTotalPages(num);
 			const obj = JSON.parse(linksCollection).slice(pageStart, pageEnd);
-			seturlList(obj);
+
+			setUrlList(obj);
 		}
 	}, [pageStart, pageEnd, linksCollection]);
 
@@ -201,7 +202,16 @@ function List() {
 									btnText=''
 									title='Copy ShortURL to Clipboard'
 								/>
-								{/* {link.stats && <Modal id={link.id} shorturl={link.shorturl} url={link.url} />} */}
+								{link.stats && (
+									<a
+										href={`https://is.gd/stats.php?url=${link.id}`}
+										target='_blank'
+										rel='noreferrer noopener'
+										className='secondary-content'
+										title='Check Statistics'>
+										<Icon left>show_chart</Icon>
+									</a>
+								)}
 							</Col>
 						</Row>
 					</CollectionItem>
