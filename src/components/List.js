@@ -104,7 +104,7 @@ function List() {
 	};
 
 	const deleteData = () => {
-		localStorage.clear();
+		localStorage.removeItem('linksCollection');
 		window.location.reload();
 	};
 
