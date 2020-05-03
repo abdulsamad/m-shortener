@@ -22,10 +22,10 @@ section {
 		.row {
 			margin: 0;
 		}
+	}
 
-		.material-icons {
-			margin: 0 0 0 10px;
-		}
+	.collection .collection-item {
+		padding: 10px 10px;
 	}
 
 	.url:placeholder-shown + .paste-button {

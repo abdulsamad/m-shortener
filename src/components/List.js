@@ -191,11 +191,11 @@ function List() {
 				{urlList.map((link, index) => (
 					<CollectionItem key={index}>
 						<Row>
-							<Col s={11}>
+							<Col s={10}>
 								<div className='truncate'>{link.title ? link.title : link.url}</div>
 								<div className='truncate blue-text'>{link.shorturl}</div>
 							</Col>
-							<Col s={1}>
+							<Col s={2}>
 								<Copy
 									copyText={link.shorturl}
 									classes='secondary-content'
