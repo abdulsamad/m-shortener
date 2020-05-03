@@ -192,8 +192,8 @@ function List() {
 					<CollectionItem key={index}>
 						<Row>
 							<Col s={11}>
-								{link.shorturl} <br />
-								<span className='truncate blue-text'>{link.url}</span>
+								<div className='truncate'>{link.title ? link.title : link.url}</div>
+								<div className='truncate blue-text'>{link.shorturl}</div>
 							</Col>
 							<Col s={1}>
 								<Copy

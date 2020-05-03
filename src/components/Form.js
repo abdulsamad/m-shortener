@@ -8,8 +8,8 @@ function Form() {
 	const [shortenURL, setShortenURL] = useState('');
 	const urlInput = useRef();
 
-	const storeUrl = (url, shorturl, stats) => {
-		const objStr = { url, shorturl, stats, id: shorturl.replace('https://is.gd/', '') };
+	const storeUrl = (url, shorturl, stats, title) => {
+		const objStr = { url, shorturl, stats, title, id: shorturl.replace('https://is.gd/', '') };
 
 		if (localStorage.getItem('linksCollection') === null) {
 			const linkCollection = [];
@@ -27,44 +27,63 @@ function Form() {
 
 		const url = new URL(ev.target.elements.url.value);
 		const stats = ev.target.elements.stats.checked;
+		let title;
 
-		if (stats) {
-			axios
-				.get(`https://is.gd/create.php?format=json&url=${url}&logstats=1`, {
-					timeout: 5000,
-				})
-				.then((res) => {
-					const { shorturl } = res.data;
-					setShortenURL(shorturl);
-					storeUrl(url.href, shorturl, stats);
-				})
-				.catch((err) => {
-					console.log(err);
-					M.toast({
-						html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-						classes: 'error-toast',
-					});
-				});
-		} else {
-			axios
-				.get(`https://is.gd/create.php?format=json&url=${url}`, {
-					timeout: 5000,
-				})
-				.then((res) => {
-					const { shorturl } = res.data;
-					setShortenURL(shorturl);
-					storeUrl(url.href, shorturl, stats);
-				})
-				.catch((err) => {
-					console.log(err);
-					M.toast({
-						html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-						classes: 'error-toast',
-					});
-				});
-		}
+		getTitle(url.href)
+			.then((res) => (title = res))
+			.finally(() => {
+				if (stats) {
+					axios
+						.get(`https://is.gd/create.php?format=json&url=${url}&logstats=1`, {
+							timeout: 5000,
+						})
+						.then((res) => {
+							const { shorturl } = res.data;
+							setShortenURL(shorturl);
+							storeUrl(url.href, shorturl, stats, title);
+						})
+						.catch((err) => {
+							console.log(err);
+							M.toast({
+								html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+								classes: 'error-toast',
+							});
+						});
+				} else {
+					axios
+						.get(`https://is.gd/create.php?format=json&url=${url}`, {
+							timeout: 5000,
+						})
+						.then((res) => {
+							const { shorturl } = res.data;
+							setShortenURL(shorturl);
+							storeUrl(url.href, shorturl, stats, title);
+						})
+						.catch((err) => {
+							console.log(err);
+							M.toast({
+								html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+								classes: 'error-toast',
+							});
+						});
+				}
+			});
 
 		ev.target.elements.url.value = '';
+	};
+
+	const getTitle = (url) => {
+		return axios
+			.get(`https://cors-anywhere.herokuapp.com/${url}`, {
+				timeout: 3000,
+			})
+			.then((res) => {
+				const doc = new DOMParser().parseFromString(res.data, 'text/html');
+				const title = doc.querySelectorAll('title')[0];
+				if (title) {
+					return title.innerText.trim();
+				}
+			});
 	};
 
 	const shareShortLink = () => {
