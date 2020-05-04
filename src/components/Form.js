@@ -27,47 +27,47 @@ function Form() {
 
 		const url = new URL(ev.target.elements.url.value);
 		const stats = ev.target.elements.stats.checked;
-		let title;
+		let title = '';
 
-		getTitle(url.href)
-			.then((res) => (title = res))
-			.finally(() => {
-				if (stats) {
-					axios
-						.get(`https://is.gd/create.php?format=json&url=${url}&logstats=1`, {
-							timeout: 5000,
-						})
-						.then((res) => {
-							const { shorturl } = res.data;
-							setShortenURL(shorturl);
-							storeUrl(url.href, shorturl, stats, title);
-						})
-						.catch((err) => {
-							console.log(err);
-							M.toast({
-								html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-								classes: 'error-toast',
-							});
-						});
-				} else {
-					axios
-						.get(`https://is.gd/create.php?format=json&url=${url}`, {
-							timeout: 5000,
-						})
-						.then((res) => {
-							const { shorturl } = res.data;
-							setShortenURL(shorturl);
-							storeUrl(url.href, shorturl, stats, title);
-						})
-						.catch((err) => {
-							console.log(err);
-							M.toast({
-								html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-								classes: 'error-toast',
-							});
-						});
-				}
-			});
+		if (stats) {
+			axios
+				.get(`https://is.gd/create.php?format=json&url=${url}&logstats=1`, {
+					timeout: 5000,
+				})
+				.then((res) => {
+					const { shorturl } = res.data;
+					setShortenURL(shorturl);
+					getTitle(url.href)
+						.then((res) => (title = res))
+						.finally(() => storeUrl(url.href, shorturl, stats, title));
+				})
+				.catch((err) => {
+					console.log(err);
+					M.toast({
+						html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+						classes: 'error-toast',
+					});
+				});
+		} else {
+			axios
+				.get(`https://is.gd/create.php?format=json&url=${url}`, {
+					timeout: 5000,
+				})
+				.then((res) => {
+					const { shorturl } = res.data;
+					setShortenURL(shorturl);
+					getTitle(url.href)
+						.then((res) => (title = res))
+						.finally(() => storeUrl(url.href, shorturl, stats, title));
+				})
+				.catch((err) => {
+					console.log(err);
+					M.toast({
+						html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+						classes: 'error-toast',
+					});
+				});
+		}
 
 		ev.target.elements.url.value = '';
 	};
@@ -75,7 +75,7 @@ function Form() {
 	const getTitle = (url) => {
 		return axios
 			.get(`https://cors-anywhere.herokuapp.com/${url}`, {
-				timeout: 3000,
+				timeout: 5000,
 			})
 			.then((res) => {
 				const doc = new DOMParser().parseFromString(res.data, 'text/html');
