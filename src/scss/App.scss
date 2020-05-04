@@ -22,6 +22,10 @@ section {
 		.row {
 			margin: 0;
 		}
+
+		.pagination {
+			user-select: none;
+		}
 	}
 
 	.collection .collection-item {
