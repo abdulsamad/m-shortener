@@ -8,8 +8,8 @@ function Form() {
 	const [shortenURL, setShortenURL] = useState('');
 	const urlInput = useRef();
 
-	const storeUrl = (url, shorturl, stats, title) => {
-		const objStr = { url, shorturl, stats, title, id: shorturl.replace('https://is.gd/', '') };
+	const storeUrl = (url, shorturl, stats) => {
+		const objStr = { url, shorturl, stats, id: shorturl.replace('https://is.gd/', '') };
 
 		if (localStorage.getItem('linksCollection') === null) {
 			const linkCollection = [];
@@ -20,6 +20,13 @@ function Form() {
 			linkCollection.unshift(objStr);
 			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
 		}
+
+		// Add title optional
+		getTitle(url).then((res) => {
+			const linkCollection = JSON.parse(localStorage.getItem('linksCollection'));
+			linkCollection[0].title = res.trim();
+			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
+		});
 	};
 
 	const onSubmit = (ev) => {
@@ -27,7 +34,6 @@ function Form() {
 
 		const url = new URL(ev.target.elements.url.value);
 		const stats = ev.target.elements.stats.checked;
-		let title = '';
 
 		if (stats) {
 			axios
@@ -37,9 +43,7 @@ function Form() {
 				.then((res) => {
 					const { shorturl } = res.data;
 					setShortenURL(shorturl);
-					getTitle(url.href)
-						.then((res) => (title = res))
-						.finally(() => storeUrl(url.href, shorturl, stats, title));
+					storeUrl(url.href, shorturl, stats);
 				})
 				.catch((err) => {
 					console.log(err);
@@ -56,9 +60,7 @@ function Form() {
 				.then((res) => {
 					const { shorturl } = res.data;
 					setShortenURL(shorturl);
-					getTitle(url.href)
-						.then((res) => (title = res))
-						.finally(() => storeUrl(url.href, shorturl, stats, title));
+					storeUrl(url.href, shorturl, stats);
 				})
 				.catch((err) => {
 					console.log(err);
@@ -125,7 +127,8 @@ function Form() {
 								/>
 								<Button
 									flat
-									tabindex='0'
+									tabIndex='-1'
+									aria-hidden='true'
 									className='paste-button hide'
 									style={{
 										padding: '0',
