@@ -125,6 +125,7 @@ function Form() {
 								/>
 								<Button
 									flat
+									tabindex='0'
 									className='paste-button hide'
 									style={{
 										padding: '0',
