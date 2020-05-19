@@ -35,14 +35,14 @@ function List({ match }) {
 	const onSearch = (ev, step = 10) => {
 		const filteredUrlList = JSON.parse(localStorage.getItem('linksCollection')).filter((url) => {
 			const regex = new RegExp(ev.target.value, 'gi');
-
 			if (!url.title) {
 				return url.url.match(regex) || url.shorturl.match(regex);
 			}
+
 			return url.url.match(regex) || url.shorturl.match(regex) || url.title.match(regex);
 		});
 
-		setUrlList(filteredUrlList);
+		setUrlList(filteredUrlList.slice(0, step));
 	};
 
 	const onSearchCancel = () => {
@@ -51,7 +51,7 @@ function List({ match }) {
 	};
 
 	return (
-		<section className='links-collection z-depth-2 hoverable'>
+		<section className='links-collection z-depth-2'>
 			<Collection
 				header={
 					<ListHead
