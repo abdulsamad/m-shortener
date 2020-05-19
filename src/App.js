@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Form from './components/Form';
 import List from './components/List';
+import Footer from './components/Footer';
 import './scss/App.scss';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 						<Route exact from='/:page' component={List} />
 					</Switch>
 				</div>
+				<Footer />
 			</div>
 		</BrowserRouter>
 	);
