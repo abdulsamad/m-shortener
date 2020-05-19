@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Navbar as Nav, NavItem } from 'react-materialize';
-import About from './About';
+import { Icon, Navbar as Nav } from 'react-materialize';
 
 function Navbar({ title }) {
 	return (
@@ -20,11 +19,7 @@ function Navbar({ title }) {
 					onOpenStart: null,
 					outDuration: 200,
 					preventScrolling: true,
-				}}>
-				<NavItem>
-					<About />
-				</NavItem>
-			</Nav>
+				}}></Nav>
 		</header>
 	);
 }
