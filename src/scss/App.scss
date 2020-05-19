@@ -39,11 +39,29 @@ section {
 		top: 50%;
 		transform: translateY(-50%);
 	}
+
+	.collection.with-header .collection-header {
+		padding: 0;
+	}
+
+	.search-input-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 5px 10px;
+
+		.input-field {
+			margin: 0;
+			flex-basis: 100%;
+			margin-right: 10px;
+		}
+	}
 }
 
 .list-head {
 	display: flex;
 	justify-content: space-between;
+	padding: 10px 20px;
 
 	.heading {
 		font-size: 1.2rem;
