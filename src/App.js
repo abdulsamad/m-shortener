@@ -1,18 +1,24 @@
 import React from 'react';
-import './scss/App.scss';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Form from './components/Form';
 import List from './components/List';
+import './scss/App.scss';
 
 function App() {
 	return (
-		<div className='App'>
-			<Navbar title='URL Shortener' />
-			<div className='container'>
-				<Form />
-				<List />
+		<BrowserRouter>
+			<div className='App'>
+				<Navbar title='URL Shortener' />
+				<div className='container'>
+					<Form />
+					<Switch>
+						<Route exact from='/' component={List} />
+						<Route exact from='/:page' component={List} />
+					</Switch>
+				</div>
 			</div>
-		</div>
+		</BrowserRouter>
 	);
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
 	Button,
 	Collection,
@@ -13,19 +14,18 @@ import {
 import M from 'materialize-css';
 import Copy from './Copy';
 
-function List() {
-	const step = 10;
+function List({ match }) {
+	const history = useHistory();
 	const linksCollection = localStorage.getItem('linksCollection');
 	const linkHash = 'e5a9cc5a85b282aec3acbc5f95bd009a';
 	const [urlList, setUrlList] = useState([]);
-	const [pageStart, setPageStart] = useState(0);
-	const [pageEnd, setPageEnd] = useState(step);
 	const [totalPages, setTotalPages] = useState(0);
+	const [activePage, setActivePage] = useState(1);
 
 	useEffect(() => {
-		let num = 1;
-
 		if (linksCollection) {
+			let num = 1;
+			const step = 10;
 			const length = JSON.parse(linksCollection).length;
 
 			while (step * num < length) {
@@ -33,11 +33,14 @@ function List() {
 			}
 
 			setTotalPages(num);
-			const obj = JSON.parse(linksCollection).slice(pageStart, pageEnd);
 
-			setUrlList(obj);
+			if (match.path !== '/') {
+				setActivePage(parseInt(match.params.page));
+			}
+
+			setUrlList(JSON.parse(linksCollection).slice(activePage * step - step, activePage * step));
 		}
-	}, [pageStart, pageEnd, linksCollection]);
+	}, [totalPages, activePage, match, linksCollection]);
 
 	const exportData = () => {
 		const link = document.createElement('a');
@@ -181,10 +184,17 @@ function List() {
 						</Modal>
 					</div>
 				}>
-				{urlList.length === 0 && (
+				{urlList.length === 0 && activePage <= totalPages && (
 					<CollectionItem>
 						<br />
 						<h5 className='grey-text'>Your history will appear here.</h5>
+						<br />
+					</CollectionItem>
+				)}
+				{activePage > totalPages && (
+					<CollectionItem>
+						<br />
+						<h5 className='grey-text'>Page not found</h5>
 						<br />
 					</CollectionItem>
 				)}
@@ -218,14 +228,13 @@ function List() {
 				))}
 				<CollectionItem className='center-align'>
 					<Pagination
-						activePage={1}
+						activePage={activePage}
 						items={totalPages}
 						leftBtn={<Icon>chevron_left</Icon>}
 						maxButtons={5}
 						rightBtn={<Icon>chevron_right</Icon>}
 						onSelect={(num) => {
-							setPageStart(num * step - step);
-							setPageEnd(num * step);
+							history.push(`/${num}`);
 						}}
 					/>
 				</CollectionItem>
