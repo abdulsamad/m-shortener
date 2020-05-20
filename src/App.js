@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Form from './components/Form';
@@ -7,6 +7,12 @@ import Footer from './components/Footer';
 import './scss/App.scss';
 
 function App() {
+	useEffect(() => {
+		if (localStorage.getItem('theme')) {
+			document.body.classList.add(localStorage.getItem('theme'));
+		}
+	}, []);
+
 	return (
 		<BrowserRouter>
 			<div className='App'>

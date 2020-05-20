@@ -1,0 +1,64 @@
+@import '~materialize-css/sass/components/color-variables';
+
+$primary-color: color('blue', 'base');
+$secondary-color: color('blue', 'base');
+
+// :root {
+// 	--color: #1f1f1f;
+// 	--bg-color: #f5f5f5;
+// 	--lighter-bg-color: #ffffff;
+// }
+
+// @media (prefers-color-scheme: dark) {
+// 	:root {
+// 		--color: #f2f2f2;
+// 		--bg-color: #171717;
+// 		--lighter-bg-color: #222222;
+// 	}
+// }
+
+.dark {
+	--color: #f2f2f2;
+	--bg-color: #171717;
+	--lighter-bg-color: #222222;
+}
+
+.light {
+	--color: #1f1f1f;
+	--bg-color: #f5f5f5;
+	--lighter-bg-color: #ffffff;
+}
+
+body {
+	background-color: var(--bg-color);
+	color: var(--color);
+	transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+}
+
+section {
+	.url,
+	.input-field input.shorten-url:disabled,
+	.search-input-container input {
+		color: var(--color);
+	}
+
+	.paste-button {
+		color: $primary-color;
+	}
+
+	.card-panel {
+		background-color: var(--lighter-bg-color);
+	}
+
+	.collection {
+		border: none;
+	}
+
+	.collection.with-header .collection-header,
+	.collection.with-header .collection-item {
+		background-color: var(--lighter-bg-color);
+	}
+}
+
+@import '~materialize-css/sass/materialize';
+@import 'mixins';

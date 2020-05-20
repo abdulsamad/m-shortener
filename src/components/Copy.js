@@ -4,7 +4,7 @@ import { Icon } from 'react-materialize';
 import M from 'materialize-css';
 
 function Copy({ copyText, classes, btnText, title }) {
-	const copyShortLink = text => {
+	const copyShortLink = (text) => {
 		const textarea = document.createElement('textarea');
 		textarea.value = text;
 		document.body.appendChild(textarea);

@@ -109,7 +109,7 @@ function Form() {
 
 	return (
 		<section className='form-container'>
-			<CardPanel>
+			<CardPanel className='z-depth-2'>
 				<Row>
 					<Col s={12}>
 						<form onSubmit={onSubmit} className='form'>
@@ -180,7 +180,7 @@ function Form() {
 								)}
 								<Copy
 									copyText={shortenURL}
-									classes='btn btn-small'
+									classes='btn btn-small waves-effect'
 									btnText='Copy'
 									title='Copy ShortURL to Clipboard'
 								/>
