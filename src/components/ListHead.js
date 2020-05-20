@@ -145,9 +145,11 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch }) {
 					preventScrolling: true,
 					startingTop: '4%',
 				}}>
-				<h6>All yours created short links will continue to redirect to their destination.</h6>
+				<h6>
+					<b>Note:</b> All your created short links will continue to redirect to their destination.
+				</h6>
 				<p>
-					You can backup you data&nbsp;
+					Meanwhile, You can download your backup data&nbsp;
 					<a href='#!' onClick={exportData}>
 						here.
 					</a>
