@@ -180,7 +180,7 @@ function Form() {
 								)}
 								<Copy
 									copyText={shortenURL}
-									classes='btn btn-small waves-effect'
+									classes='btn btn-small waves-effect waves-light'
 									btnText='Copy'
 									title='Copy ShortURL to Clipboard'
 								/>
