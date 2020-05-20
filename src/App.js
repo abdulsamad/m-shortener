@@ -9,7 +9,7 @@ import './scss/App.scss';
 function App() {
 	useEffect(() => {
 		if (localStorage.getItem('theme')) {
-			document.body.classList.add(localStorage.getItem('theme'));
+			document.body.className = localStorage.getItem('theme');
 		}
 	}, []);
 
