@@ -28,10 +28,7 @@ function Navbar({ title }) {
 					outDuration: 200,
 					preventScrolling: true,
 				}}>
-				<NavItem
-					style={{
-						backgroundColor: 'transparent',
-					}}>
+				<NavItem>
 					<Switch
 						id='theme-switch'
 						checked={darkTheme}
