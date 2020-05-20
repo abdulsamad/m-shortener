@@ -33,16 +33,19 @@ function List({ match }) {
 	}, [totalPages, activePage, match]);
 
 	const onSearch = (ev, step = 10) => {
-		const filteredUrlList = JSON.parse(localStorage.getItem('linksCollection')).filter((url) => {
-			const regex = new RegExp(ev.target.value, 'gi');
-			if (!url.title) {
-				return url.url.match(regex) || url.shorturl.match(regex);
-			}
+		const linksCollection = localStorage.getItem('linksCollection');
+		if (linksCollection) {
+			const filteredUrlList = JSON.parse(linksCollection).filter((url) => {
+				const regex = new RegExp(ev.target.value, 'gi');
+				if (!url.title) {
+					return url.url.match(regex) || url.shorturl.match(regex);
+				}
 
-			return url.url.match(regex) || url.shorturl.match(regex) || url.title.match(regex);
-		});
+				return url.url.match(regex) || url.shorturl.match(regex) || url.title.match(regex);
+			});
 
-		setUrlList(filteredUrlList.slice(0, step));
+			setUrlList(filteredUrlList.slice(0, step));
+		}
 	};
 
 	const onSearchCancel = () => {
