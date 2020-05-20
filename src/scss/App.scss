@@ -1,5 +1,5 @@
 @import 'theme';
-@import 'https://fonts.googleapis.com/css2?family=Oswald&family=Open+Sans&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap';
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
 .App {
@@ -13,7 +13,7 @@
 
 .nav-wrapper {
 	.brand-logo {
-		font-family: Oswald;
+		font-weight: 700;
 		font-size: 1.8rem;
 		margin-left: 5px;
 	}
@@ -21,6 +21,17 @@
 
 section {
 	margin: 20px 0;
+
+	.list-head {
+		display: flex;
+		justify-content: space-between;
+		padding: 10px 20px;
+
+		.heading {
+			font-size: 1.2rem;
+			font-weight: 600;
+		}
+	}
 
 	&.links-collection {
 		.row {
@@ -59,17 +70,6 @@ section {
 			flex-basis: 100%;
 			margin-right: 10px;
 		}
-	}
-}
-
-.list-head {
-	display: flex;
-	justify-content: space-between;
-	padding: 10px 20px;
-
-	.heading {
-		font-size: 1.2rem;
-		font-weight: 600;
 	}
 }
 
