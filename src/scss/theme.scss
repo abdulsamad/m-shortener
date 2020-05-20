@@ -54,6 +54,18 @@ body {
 			}
 		}
 	}
+
+	.modal {
+		background-color: var(--lighter-bg-color);
+
+		.modal-footer {
+			background-color: var(--bg-color);
+
+			.btn-flat {
+				color: var(--color);
+			}
+		}
+	}
 }
 
 section {
