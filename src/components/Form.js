@@ -163,7 +163,7 @@ function Form() {
 						{shortenURL && (
 							<div>
 								<div className='input-field'>
-									<input type='url' name='shortenurl' value={shortenURL} disabled />
+									<input type='url' className='shorten-url' value={shortenURL} disabled />
 								</div>
 								{navigator.share && (
 									<Button
