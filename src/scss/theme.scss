@@ -43,6 +43,10 @@ body {
 			justify-content: center;
 			background-color: color('blue', 'base');
 
+			&:hover {
+				background-color: color('blue', 'base');
+			}
+
 			.switch {
 				display: flex;
 				align-items: center;
