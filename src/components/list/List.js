@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Collection, CollectionItem, Col, Icon, Pagination, Row } from 'react-materialize';
-import Copy from './Copy';
+import Copy from '../Copy';
 import ListHead from './ListHead';
 
 function List({ match }) {

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 import Form from './components/Form';
-import List from './components/List';
-import Footer from './components/Footer';
+import List from './components/list/List';
+import Footer from './components/layout/Footer';
 import './scss/App.scss';
 
 function App() {
