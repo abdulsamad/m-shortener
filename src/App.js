@@ -14,7 +14,7 @@ function App() {
 	}, []);
 
 	return (
-		<BrowserRouter basename='/url_shortener-is.gd'>
+		<BrowserRouter basename='/url_shortener_is.gd'>
 			<div className='App'>
 				<Navbar title='URL Shortener' />
 				<div className='container'>
