@@ -78,6 +78,10 @@ body {
 }
 
 section {
+	.card-panel {
+		background-color: var(--lighter-bg-color);
+	}
+
 	.url,
 	.input-field input.shorten-url:disabled,
 	.search-input-container input {
@@ -88,10 +92,6 @@ section {
 		color: $primary-color;
 	}
 
-	.card-panel {
-		background-color: var(--lighter-bg-color);
-	}
-
 	.collection {
 		border: none;
 	}
@@ -99,6 +99,12 @@ section {
 	.collection.with-header .collection-header,
 	.collection.with-header .collection-item {
 		background-color: var(--lighter-bg-color);
+	}
+
+	.pagination {
+		li a {
+			color: var(--color);
+		}
 	}
 }
 
