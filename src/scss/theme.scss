@@ -88,6 +88,10 @@ section {
 		color: var(--color);
 	}
 
+	.input-field input.shorten-url:disabled {
+		border-bottom: 1px dotted var(--color);
+	}
+
 	.paste-button {
 		color: $primary-color;
 	}
