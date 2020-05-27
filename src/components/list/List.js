@@ -82,8 +82,12 @@ function List({ match }) {
 					<CollectionItem key={index}>
 						<Row>
 							<Col s={10}>
-								<div className='truncate'>{link.title ? link.title : link.url}</div>
-								<div className='truncate blue-text'>{link.shorturl}</div>
+								<div className='truncate' title='Title'>
+									{link.title ? link.title : link.url}
+								</div>
+								<div className='truncate blue-text' title='Short URL'>
+									{link.shorturl}
+								</div>
 							</Col>
 							<Col s={2}>
 								<Copy
