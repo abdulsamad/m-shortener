@@ -45,6 +45,11 @@ section {
 
 	.collection .collection-item {
 		padding: 10px 10px;
+
+		.truncate:hover {
+			text-overflow: unset;
+			overflow-x: auto;
+		}
 	}
 
 	.url:placeholder-shown + .paste-button {
