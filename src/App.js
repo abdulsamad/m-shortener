@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Form from './components/Form';
 import List from './components/list/List';
@@ -20,7 +20,7 @@ function App() {
 				<div className='container'>
 					<Form />
 					<Switch>
-						<Route exact from='/' component={List} />
+						<Redirect exact from='/' to='/1' />
 						<Route exact from='/:page' component={List} />
 					</Switch>
 				</div>
