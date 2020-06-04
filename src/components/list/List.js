@@ -92,7 +92,7 @@ function List({ match }) {
 							<Col s={2}>
 								<Copy
 									copyText={link.shorturl}
-									classes='secondary-content'
+									classes='secondary-content secondary-copy-btn'
 									btnText=''
 									title='Copy ShortURL to Clipboard'
 								/>

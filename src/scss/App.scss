@@ -50,6 +50,18 @@ section {
 			text-overflow: unset;
 			overflow-x: auto;
 		}
+
+		@include mobile {
+			.secondary-copy-btn:active {
+				color: #9e9e9e;
+			}
+		}
+
+		@include desktop {
+			.secondary-copy-btn:hover {
+				color: #9e9e9e;
+			}
+		}
 	}
 
 	.url:placeholder-shown + .paste-button {
