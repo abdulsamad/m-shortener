@@ -101,8 +101,9 @@ function Form() {
 		try {
 			const text = await navigator.clipboard.readText();
 			urlInput.current.value = text;
+			urlInput.current.blur();
 		} catch (err) {
-			alert('Clipboard API not supported or Clipboard permission not granted.');
+			alert('Clipboard permission not granted.');
 			console.log(err);
 		}
 	};
