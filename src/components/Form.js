@@ -9,7 +9,13 @@ function Form() {
 	const urlInput = useRef();
 
 	const storeUrl = (url, shorturl, stats) => {
-		const objStr = { url, shorturl, stats, id: shorturl.replace('https://is.gd/', '') };
+		const objStr = {
+			url,
+			shorturl,
+			stats,
+			id: shorturl.replace('https://is.gd/', ''),
+			timestamp: Date.now(),
+		};
 
 		if (localStorage.getItem('linksCollection') === null) {
 			const linkCollection = [];
