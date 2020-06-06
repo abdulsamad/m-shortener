@@ -6,6 +6,7 @@ import M from 'materialize-css';
 function Copy({ copyText, classes, btnText, title }) {
 	const copyShortLink = (text) => {
 		const textarea = document.createElement('textarea');
+		M.Toast.dismissAll();
 		textarea.value = text;
 		document.body.appendChild(textarea);
 		textarea.select();
