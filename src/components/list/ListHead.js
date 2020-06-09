@@ -2,7 +2,7 @@ import React from 'react';
 import M from 'materialize-css';
 import { Dropdown, Modal, Icon, Button, TextInput } from 'react-materialize';
 
-function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch }) {
+function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMode }) {
 	const linkHash = 'e5a9cc5a85b282aec3acbc5f95bd009a';
 
 	const exportData = () => {
@@ -114,6 +114,9 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch }) {
 							<Icon right>more_vert</Icon>
 						</a>
 					}>
+					<a href='#!' onClick={editMode}>
+						<Icon left>edit</Icon> Edit Mode
+					</a>
 					<a href='#!' onChange={importData}>
 						<Icon left>import_export</Icon>
 						<input type='file' className='import-file-input' />
@@ -121,7 +124,7 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch }) {
 					<a href='#!' onClick={exportData}>
 						<Icon left>cloud_download</Icon> Export
 					</a>
-					<a className='modal-trigger' href='#delete-modal' node='a'>
+					<a className='modal-trigger' href='#delete-modal'>
 						<Icon left>delete</Icon> Delete
 					</a>
 				</Dropdown>
