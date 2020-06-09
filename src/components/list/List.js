@@ -10,6 +10,7 @@ function List({ match }) {
 	const [totalPages, setTotalPages] = useState(0);
 	const [activePage, setActivePage] = useState(1);
 	const [showSearch, setShowSearch] = useState(false);
+	const [editModeActive, setEditModeActive] = useState(true);
 
 	useEffect(() => {
 		const linksCollection = localStorage.getItem('linksCollection');
@@ -53,6 +54,18 @@ function List({ match }) {
 		history.push('/');
 	};
 
+	const deleteURL = (ev) => {
+		const id = ev.target.parentElement.parentElement.parentElement
+			.querySelector('.shorturl')
+			.innerText.replace('https://is.gd/', '');
+		const linksCollection = JSON.parse(localStorage.getItem('linksCollection'));
+		const item = linksCollection.filter((url) => url.id !== id);
+
+		localStorage.setItem('linksCollection', JSON.stringify(item));
+		ev.target.closest('.collection-item').remove();
+		console.log(linksCollection.length);
+	};
+
 	return (
 		<section className='links-collection z-depth-2'>
 			<Collection
@@ -62,6 +75,7 @@ function List({ match }) {
 						onSearchCancel={onSearchCancel}
 						showSearch={showSearch}
 						setShowSearch={setShowSearch}
+						editMode={() => setEditModeActive((prevState) => !prevState)}
 					/>
 				}>
 				{urlList.length === 0 && (
@@ -82,10 +96,17 @@ function List({ match }) {
 					<CollectionItem key={index}>
 						<Row>
 							<Col s={10}>
+								{editModeActive && (
+									<div>
+										<a href='#!' onClick={deleteURL}>
+											<Icon left>delete</Icon>
+										</a>
+									</div>
+								)}
 								<div className='truncate' title='Title'>
 									{link.title ? link.title : link.url}
 								</div>
-								<div className='truncate blue-text' title='Short URL'>
+								<div className='truncate blue-text shorturl' title='Short URL'>
 									{link.shorturl}
 								</div>
 							</Col>
