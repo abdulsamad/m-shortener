@@ -62,6 +62,12 @@ body {
 
 	.modal {
 		background-color: var(--lighter-bg-color);
+		color: var(--color);
+
+		input {
+			background-color: var(--lighter-bg-color);
+			color: var(--color);
+		}
 
 		.modal-footer {
 			background-color: var(--bg-color);
