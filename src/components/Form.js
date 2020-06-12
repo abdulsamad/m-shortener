@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import M from 'materialize-css';
-import { Button, CardPanel, Col, Icon, Row } from 'react-materialize';
+import { Button, CardPanel, Col, Icon, Row, Preloader } from 'react-materialize';
 import Copy from './Copy';
 import axios from 'axios';
 
 function Form() {
 	const [shortenURL, setShortenURL] = useState('');
+	const [titleFetched, setTitleFetched] = useState(null);
 	const urlInput = useRef();
 
 	const storeUrl = (url, shorturl, stats) => {
@@ -28,15 +29,19 @@ function Form() {
 		}
 
 		// Add title optional
-		getTitle(url).then((res) => {
-			const linkCollection = JSON.parse(localStorage.getItem('linksCollection'));
-			linkCollection[0].title = res.trim();
-			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
-		});
+		getTitle(url)
+			.then((res) => {
+				const linkCollection = JSON.parse(localStorage.getItem('linksCollection'));
+				linkCollection[0].title = res.trim();
+				localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
+				setTitleFetched(true);
+			})
+			.catch(() => setTitleFetched(false));
 	};
 
 	const onSubmit = (ev) => {
 		ev.preventDefault();
+		setTitleFetched(null);
 
 		const url = new URL(ev.target.elements.url.value);
 		const stats = ev.target.elements.stats.checked;
@@ -171,6 +176,47 @@ function Form() {
 							<div>
 								<div className='input-field'>
 									<input type='url' className='shorten-url' value={shortenURL} disabled />
+									<Button
+										flat
+										aria-hidden='true'
+										className='shorturl-title-preload'
+										style={{
+											padding: '0',
+										}}
+										waves='light'>
+										{titleFetched === null && (
+											<Preloader
+												active
+												color='blue'
+												tooltip='Fetching link title'
+												tooltipOptions={{
+													position: 'top',
+												}}
+												flashing={false}
+												size='small'
+											/>
+										)}
+										{titleFetched === false && (
+											<Icon
+												tooltip='Fetching link title failed'
+												tooltipOptions={{
+													position: 'top',
+												}}
+												className='red-text'>
+												highlight_off
+											</Icon>
+										)}
+										{titleFetched && (
+											<Icon
+												tooltip='Link title fetched'
+												tooltipOptions={{
+													position: 'top',
+												}}
+												className='green-text'>
+												check_circle
+											</Icon>
+										)}
+									</Button>
 								</div>
 								{navigator.share && (
 									<Button

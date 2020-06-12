@@ -74,6 +74,19 @@ section {
 		transform: translateY(-50%);
 	}
 
+	.shorturl-title-preload {
+		display: block !important;
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+
+		.preloader-wrapper {
+			height: 25px;
+			width: 25px;
+		}
+	}
+
 	.collection.with-header .collection-header {
 		padding: 0;
 	}
