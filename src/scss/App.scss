@@ -52,13 +52,15 @@ section {
 		}
 
 		@include mobile {
-			.secondary-copy-btn:active {
+			.secondary-copy-btn:active,
+			.edit-mode-icons a:active {
 				color: #9e9e9e;
 			}
 		}
 
 		@include desktop {
-			.secondary-copy-btn:hover {
+			.secondary-copy-btn:hover,
+			.edit-mode-icons a:hover {
 				color: #9e9e9e;
 			}
 		}
