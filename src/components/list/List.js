@@ -165,13 +165,15 @@ function List({ match }) {
 								</div>
 							</Col>
 							<Col s={2}>
-								<Copy
-									copyText={link.shorturl}
-									classes='secondary-content secondary-copy-btn'
-									btnText=''
-									title='Copy ShortURL to Clipboard'
-								/>
-								{link.stats && (
+								{!editModeActive && (
+									<Copy
+										copyText={link.shorturl}
+										classes='secondary-content secondary-copy-btn'
+										btnText=''
+										title='Copy ShortURL to Clipboard'
+									/>
+								)}
+								{link.stats && !editModeActive && (
 									<a
 										href={`https://is.gd/stats.php?url=${link.id}`}
 										target='_blank'
