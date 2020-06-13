@@ -142,7 +142,7 @@ function List({ match }) {
 							}
 						}}>
 						<Row>
-							<Col s={10}>
+							<Col s={editModeActive ? 12 : 10} style={{ padding: '0px' }}>
 								{editModeActive && (
 									<div className='edit-mode-icons'>
 										<a href='#Edit-Modal' className='modal-trigger'>
@@ -164,26 +164,26 @@ function List({ match }) {
 									{link.shorturl}
 								</div>
 							</Col>
-							<Col s={2}>
-								{!editModeActive && (
+							{!editModeActive && (
+								<Col s={2}>
 									<Copy
 										copyText={link.shorturl}
 										classes='secondary-content secondary-copy-btn'
 										btnText=''
 										title='Copy ShortURL to Clipboard'
 									/>
-								)}
-								{link.stats && !editModeActive && (
-									<a
-										href={`https://is.gd/stats.php?url=${link.id}`}
-										target='_blank'
-										rel='noreferrer noopener'
-										className='secondary-content'
-										title='Check Statistics'>
-										<Icon left>show_chart</Icon>
-									</a>
-								)}
-							</Col>
+									{link.stats && !editModeActive && (
+										<a
+											href={`https://is.gd/stats.php?url=${link.id}`}
+											target='_blank'
+											rel='noreferrer noopener'
+											className='secondary-content'
+											title='Check Statistics'>
+											<Icon left>show_chart</Icon>
+										</a>
+									)}
+								</Col>
+							)}
 						</Row>
 					</CollectionItem>
 				))}
