@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import M from 'materialize-css';
 import {
 	Collection,
 	CollectionItem,
@@ -70,13 +71,23 @@ function List({ match }) {
 		history.push('/');
 	};
 
-	const deleteURL = (id) => {
+	const deleteURL = (id, elem) => {
 		const linksCollection = JSON.parse(localStorage.getItem('linksCollection'));
 		const newLinksCollection = linksCollection.filter((url) => url.id !== id);
 		const newUrlList = urlList.filter((url) => url.id !== id);
+		elem.classList.add('deleting-item');
+		M.Toast.dismissAll();
 
-		setUrlList(newUrlList);
 		localStorage.setItem('linksCollection', JSON.stringify(newLinksCollection));
+		setUrlList(newUrlList);
+		setTimeout(() => {
+			elem.classList.remove('deleting-item');
+		}, 500);
+
+		M.toast({
+			html: `<i class='material-icons red-text'>check_circle</i> &nbsp; URL Deleted`,
+			classes: 'delete-toast',
+		});
 	};
 
 	const editURL = ({ id }) => {
@@ -127,7 +138,7 @@ function List({ match }) {
 								let obj = linksCollection.find((url) => url.id === id);
 								setEditObj({ title: '', ...obj });
 							} else if (ev.target.classList.contains('delete')) {
-								deleteURL(id);
+								deleteURL(id, ev.currentTarget);
 							}
 						}}>
 						<Row>
