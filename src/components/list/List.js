@@ -165,7 +165,7 @@ function List({ match }) {
 								</div>
 							</Col>
 							{!editModeActive && (
-								<Col s={2}>
+								<Col s={2} className='center-align'>
 									<Copy
 										copyText={link.shorturl}
 										classes='secondary-content secondary-copy-btn'
