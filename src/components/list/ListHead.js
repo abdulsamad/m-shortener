@@ -88,47 +88,49 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
 	return (
 		<div className='list-head'>
 			<div className='heading'>Recent Shorten Links</div>
-			<span className='list-dropdown'>
-				<a href='#!' onClick={() => setShowSearch(true)}>
-					<Icon>search</Icon>
-				</a>
-				<Dropdown
-					id='list-dropdown'
-					options={{
-						alignment: 'left',
-						autoTrigger: true,
-						closeOnClick: true,
-						constrainWidth: true,
-						container: null,
-						coverTrigger: true,
-						hover: false,
-						inDuration: 150,
-						onCloseEnd: null,
-						onCloseStart: null,
-						onOpenEnd: null,
-						onOpenStart: null,
-						outDuration: 250,
-					}}
-					trigger={
-						<a href='#!'>
-							<Icon right>more_vert</Icon>
+			{localStorage.getItem('linksCollection') && (
+				<span className='list-dropdown'>
+					<a href='#!' onClick={() => setShowSearch(true)}>
+						<Icon>search</Icon>
+					</a>
+					<Dropdown
+						id='list-dropdown'
+						options={{
+							alignment: 'left',
+							autoTrigger: true,
+							closeOnClick: true,
+							constrainWidth: true,
+							container: null,
+							coverTrigger: true,
+							hover: false,
+							inDuration: 150,
+							onCloseEnd: null,
+							onCloseStart: null,
+							onOpenEnd: null,
+							onOpenStart: null,
+							outDuration: 250,
+						}}
+						trigger={
+							<a href='#!'>
+								<Icon right>more_vert</Icon>
+							</a>
+						}>
+						<a href='#!' onClick={editMode}>
+							<Icon left>edit</Icon> Edit Mode
 						</a>
-					}>
-					<a href='#!' onClick={editMode}>
-						<Icon left>edit</Icon> Edit Mode
-					</a>
-					<a href='#!' onChange={importData}>
-						<Icon left>import_export</Icon>
-						<input type='file' className='import-file-input' />
-					</a>
-					<a href='#!' onClick={exportData}>
-						<Icon left>cloud_download</Icon> Export
-					</a>
-					<a className='modal-trigger' href='#delete-modal'>
-						<Icon left>delete</Icon> Delete
-					</a>
-				</Dropdown>
-			</span>
+						<a href='#!' onChange={importData}>
+							<Icon left>import_export</Icon>
+							<input type='file' className='import-file-input' />
+						</a>
+						<a href='#!' onClick={exportData}>
+							<Icon left>cloud_download</Icon> Export
+						</a>
+						<a className='modal-trigger' href='#delete-modal'>
+							<Icon left>delete</Icon> Delete
+						</a>
+					</Dropdown>
+				</span>
+			)}
 			<Modal
 				bottomSheet={false}
 				fixedFooter={false}
