@@ -126,7 +126,7 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
 							<Icon left>cloud_download</Icon> Export
 						</a>
 						<a className='modal-trigger' href='#delete-modal'>
-							<Icon left>delete</Icon> Delete
+							<Icon left>delete</Icon> Delete All
 						</a>
 					</Dropdown>
 				</span>
