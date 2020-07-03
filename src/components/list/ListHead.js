@@ -4,6 +4,7 @@ import { Dropdown, Modal, Icon, Button, TextInput } from 'react-materialize';
 
 function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMode }) {
 	const linkHash = 'e5a9cc5a85b282aec3acbc5f95bd009a';
+	const linksCollection = localStorage.getItem('linksCollection');
 
 	const exportData = () => {
 		const link = document.createElement('a');
@@ -88,7 +89,7 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
 	return (
 		<div className='list-head'>
 			<div className='heading'>Recent Shorten Links</div>
-			{localStorage.getItem('linksCollection') && (
+			{linksCollection && (
 				<span className='list-dropdown'>
 					<a href='#!' onClick={() => setShowSearch(true)}>
 						<Icon>search</Icon>
@@ -130,6 +131,35 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
 						</a>
 					</Dropdown>
 				</span>
+			)}
+			{!linksCollection && (
+				<Dropdown
+					id='list-dropdown'
+					options={{
+						alignment: 'left',
+						autoTrigger: true,
+						closeOnClick: true,
+						constrainWidth: true,
+						container: null,
+						coverTrigger: true,
+						hover: false,
+						inDuration: 150,
+						onCloseEnd: null,
+						onCloseStart: null,
+						onOpenEnd: null,
+						onOpenStart: null,
+						outDuration: 250,
+					}}
+					trigger={
+						<a href='#!'>
+							<Icon right>more_vert</Icon>
+						</a>
+					}>
+					<a href='#!' onChange={importData}>
+						<Icon left>import_export</Icon>
+						<input type='file' className='import-file-input' />
+					</a>
+				</Dropdown>
 			)}
 			<Modal
 				bottomSheet={false}
