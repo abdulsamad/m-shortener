@@ -1,6 +1,13 @@
 import React, { useState, useRef } from 'react';
 import M from 'materialize-css';
-import { Button, CardPanel, Col, Icon, Row, Preloader } from 'react-materialize';
+import {
+	Button,
+	CardPanel,
+	Col,
+	Icon,
+	Row,
+	Preloader,
+} from 'react-materialize';
 import Copy from './Copy';
 import axios from 'axios';
 
@@ -23,7 +30,9 @@ function Form() {
 			linkCollection.unshift(objStr);
 			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
 		} else {
-			const linkCollection = JSON.parse(localStorage.getItem('linksCollection'));
+			const linkCollection = JSON.parse(
+				localStorage.getItem('linksCollection'),
+			);
 			linkCollection.unshift(objStr);
 			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
 		}
@@ -31,7 +40,9 @@ function Form() {
 		// Add title optional
 		getTitle(url)
 			.then((res) => {
-				const linkCollection = JSON.parse(localStorage.getItem('linksCollection'));
+				const linkCollection = JSON.parse(
+					localStorage.getItem('linksCollection'),
+				);
 				linkCollection[0].title = res.trim();
 				localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
 				setTitleFetched(true);
@@ -45,42 +56,26 @@ function Form() {
 
 		const url = new URL(ev.target.elements.url.value);
 		const stats = ev.target.elements.stats.checked;
+		const isgdAPI = stats
+			? `https://is.gd/create.php?format=json&url=${url}&logstats=1`
+			: `https://is.gd/create.php?format=json&url=${url}`;
 
-		if (stats) {
-			axios
-				.get(`https://is.gd/create.php?format=json&url=${url}&logstats=1`, {
-					timeout: 5000,
-				})
-				.then((res) => {
-					const { shorturl } = res.data;
-					setShortenURL(shorturl);
-					storeUrl(url.href, shorturl, stats);
-				})
-				.catch((err) => {
-					console.log(err);
-					M.toast({
-						html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-						classes: 'error-toast',
-					});
+		axios
+			.get(isgdAPI, {
+				timeout: 5000,
+			})
+			.then((res) => {
+				const { shorturl } = res.data;
+				setShortenURL(shorturl);
+				storeUrl(url.href, shorturl, stats);
+			})
+			.catch((err) => {
+				console.log(err);
+				M.toast({
+					html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+					classes: 'error-toast',
 				});
-		} else {
-			axios
-				.get(`https://is.gd/create.php?format=json&url=${url}`, {
-					timeout: 5000,
-				})
-				.then((res) => {
-					const { shorturl } = res.data;
-					setShortenURL(shorturl);
-					storeUrl(url.href, shorturl, stats);
-				})
-				.catch((err) => {
-					console.log(err);
-					M.toast({
-						html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-						classes: 'error-toast',
-					});
-				});
-		}
+			});
 
 		ev.target.elements.url.value = '';
 	};
@@ -175,7 +170,12 @@ function Form() {
 						{shortenURL && (
 							<div>
 								<div className='input-field'>
-									<input type='url' className='shorten-url' value={shortenURL} disabled />
+									<input
+										type='url'
+										className='shorten-url'
+										value={shortenURL}
+										disabled
+									/>
 									<Button
 										flat
 										aria-hidden='true'
