@@ -70,7 +70,6 @@ function Form() {
 				storeUrl(url.href, shorturl, stats);
 			})
 			.catch((err) => {
-				console.log(err);
 				M.toast({
 					html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
 					classes: 'error-toast',
@@ -110,7 +109,6 @@ function Form() {
 			urlInput.current.blur();
 		} catch (err) {
 			alert('Clipboard permission not granted.');
-			console.log(err);
 		}
 	};
 
