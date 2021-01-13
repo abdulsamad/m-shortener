@@ -8,7 +8,7 @@ import {
 	Row,
 	Preloader,
 } from 'react-materialize';
-import Copy from './Copy';
+import Copy from '../utils/Copy';
 import axios from 'axios';
 
 function Form() {
@@ -31,7 +31,7 @@ function Form() {
 			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
 		} else {
 			const linkCollection = JSON.parse(
-				localStorage.getItem('linksCollection'),
+				localStorage.getItem('linksCollection')
 			);
 			linkCollection.unshift(objStr);
 			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
@@ -41,7 +41,7 @@ function Form() {
 		getTitle(url)
 			.then((res) => {
 				const linkCollection = JSON.parse(
-					localStorage.getItem('linksCollection'),
+					localStorage.getItem('linksCollection')
 				);
 				linkCollection[0].title = res.trim();
 				localStorage.setItem('linksCollection', JSON.stringify(linkCollection));

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
-import Form from './components/Form';
-import List from './components/list/List';
+import Form from './components/layout/Form';
+import List from './components/layout/list/List';
 import Footer from './components/layout/Footer';
 import './scss/App.scss';
 

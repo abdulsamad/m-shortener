@@ -12,7 +12,7 @@ import {
 	Button,
 	TextInput,
 } from 'react-materialize';
-import Copy from '../Copy';
+import Copy from '../../utils/Copy';
 import ListHead from './ListHead';
 
 function List({ match }) {
@@ -46,7 +46,12 @@ function List({ match }) {
 				setActivePage(parseInt(match.params.page));
 			}
 
-			setUrlList(JSON.parse(linksCollection).slice(activePage * step - step, activePage * step));
+			setUrlList(
+				JSON.parse(linksCollection).slice(
+					activePage * step - step,
+					activePage * step
+				)
+			);
 		}
 	}, [totalPages, activePage, match]);
 
@@ -59,7 +64,11 @@ function List({ match }) {
 					return url.url.match(regex) || url.shorturl.match(regex);
 				}
 
-				return url.url.match(regex) || url.shorturl.match(regex) || url.title.match(regex);
+				return (
+					url.url.match(regex) ||
+					url.shorturl.match(regex) ||
+					url.title.match(regex)
+				);
 			});
 
 			setUrlList(filteredUrlList.slice(0, step));
@@ -92,7 +101,9 @@ function List({ match }) {
 
 	const editURL = ({ id }) => {
 		const linksCollection = JSON.parse(localStorage.getItem('linksCollection'));
-		const newLinksCollection = linksCollection.map((url) => (url.id === id ? editObj : url));
+		const newLinksCollection = linksCollection.map((url) =>
+			url.id === id ? editObj : url
+		);
 		const newUrlList = urlList.map((url) => (url.id === id ? editObj : url));
 
 		setUrlList(newUrlList);
@@ -129,7 +140,9 @@ function List({ match }) {
 					<CollectionItem
 						key={index}
 						onClick={(ev) => {
-							const linksCollection = JSON.parse(localStorage.getItem('linksCollection'));
+							const linksCollection = JSON.parse(
+								localStorage.getItem('linksCollection')
+							);
 							const id = ev.target.parentElement.parentElement.parentElement
 								.querySelector('.shorturl')
 								.innerText.replace('https://is.gd/', '');
@@ -208,7 +221,11 @@ function List({ match }) {
 						Cancel
 					</Button>,
 					<span>&nbsp;&nbsp;&nbsp;</span>,
-					<Button modal='close' node='button' className='blue' onClick={() => editURL(editObj)}>
+					<Button
+						modal='close'
+						node='button'
+						className='blue'
+						onClick={() => editURL(editObj)}>
 						Edit
 					</Button>,
 				]}
@@ -236,7 +253,9 @@ function List({ match }) {
 						icon='title'
 						value={editObj.title}
 						name='title'
-						onChange={(ev) => setEditObj({ ...editObj, [ev.target.name]: ev.target.value })}
+						onChange={(ev) =>
+							setEditObj({ ...editObj, [ev.target.name]: ev.target.value })
+						}
 						label='Title'
 					/>
 					<TextInput
