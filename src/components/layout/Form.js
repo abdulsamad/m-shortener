@@ -10,6 +10,7 @@ import {
 } from 'react-materialize';
 import Copy from '../utils/Copy';
 import axios from 'axios';
+import localForage from 'localforage';
 
 function Form() {
 	const [shortenURL, setShortenURL] = useState('');
@@ -17,6 +18,7 @@ function Form() {
 	const urlInput = useRef();
 
 	const storeUrl = (url, shorturl, stats) => {
+		const key = 'linksCollection';
 		const objStr = {
 			url,
 			shorturl,
@@ -25,27 +27,30 @@ function Form() {
 			timestamp: Date.now(),
 		};
 
-		if (localStorage.getItem('linksCollection') === null) {
-			const linkCollection = [];
-			linkCollection.unshift(objStr);
-			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
-		} else {
-			const linkCollection = JSON.parse(
-				localStorage.getItem('linksCollection')
-			);
-			linkCollection.unshift(objStr);
-			localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
-		}
+		localForage
+			.getItem(key)
+			.then((res) => {
+				res
+					? localForage.setItem(key, [objStr, ...res])
+					: localForage.setItem(key, [objStr]);
+			})
+			.catch((err) => {
+				M.toast({
+					html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
+					classes: 'error-toast',
+				});
+			});
 
 		// Add title optional
 		getTitle(url)
 			.then((res) => {
-				const linkCollection = JSON.parse(
-					localStorage.getItem('linksCollection')
-				);
-				linkCollection[0].title = res.trim();
-				localStorage.setItem('linksCollection', JSON.stringify(linkCollection));
-				setTitleFetched(true);
+				localForage.getItem(key).then((links) => {
+					if (res === 'string') {
+						links[0].title = res.trim();
+						localForage.setItem(key, links);
+					}
+					setTitleFetched(true);
+				});
 			})
 			.catch(() => setTitleFetched(false));
 	};
@@ -133,7 +138,6 @@ function Form() {
 								<Button
 									flat
 									tabIndex='-1'
-									aria-hidden='true'
 									className='paste-button hide'
 									style={{
 										padding: '0',

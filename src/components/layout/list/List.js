@@ -14,6 +14,7 @@ import {
 } from 'react-materialize';
 import Copy from '../../utils/Copy';
 import ListHead from './ListHead';
+import localForage from 'localforage';
 
 function List({ match }) {
 	const history = useHistory();
@@ -30,49 +31,45 @@ function List({ match }) {
 	});
 
 	useEffect(() => {
-		const linksCollection = localStorage.getItem('linksCollection');
+		localForage.getItem('linksCollection').then((links) => {
+			const { page } = match.params;
 
-		if (linksCollection) {
-			let num = 1;
-			const step = 10;
-			const length = JSON.parse(linksCollection).length;
-			while (step * num < length) {
-				num++;
+			if (links) {
+				let num = 1;
+				const step = 10;
+				const length = links.length;
+				while (step * num < length) {
+					num++;
+				}
+
+				setTotalPages(num);
+				if (match.path !== '/') setActivePage(parseInt(page));
+
+				setUrlList(links.slice(activePage * step - step, activePage * step));
 			}
-
-			setTotalPages(num);
-
-			if (match.path !== '/') {
-				setActivePage(parseInt(match.params.page));
-			}
-
-			setUrlList(
-				JSON.parse(linksCollection).slice(
-					activePage * step - step,
-					activePage * step
-				)
-			);
-		}
+		});
 	}, [totalPages, activePage, match]);
 
 	const onSearch = (ev, step = 10) => {
-		const linksCollection = localStorage.getItem('linksCollection');
-		if (linksCollection) {
-			const filteredUrlList = JSON.parse(linksCollection).filter((url) => {
-				const regex = new RegExp(ev.target.value, 'gi');
-				if (!url.title) {
-					return url.url.match(regex) || url.shorturl.match(regex);
-				}
+		const value = ev.target.value;
 
-				return (
-					url.url.match(regex) ||
-					url.shorturl.match(regex) ||
-					url.title.match(regex)
-				);
-			});
+		localForage.getItem('linksCollection').then((links) => {
+			if (links) {
+				const regex = new RegExp(value, 'gi');
+				const filteredUrlList = links.filter((url) => {
+					if (!url.title)
+						return url.url.match(regex) || url.shorturl.match(regex);
 
-			setUrlList(filteredUrlList.slice(0, step));
-		}
+					return (
+						url.url.match(regex) ||
+						url.shorturl.match(regex) ||
+						url.title.match(regex)
+					);
+				});
+
+				setUrlList(filteredUrlList.slice(0, step));
+			}
+		});
 	};
 
 	const onSearchCancel = () => {
@@ -81,33 +78,32 @@ function List({ match }) {
 	};
 
 	const deleteURL = (id, elem) => {
-		const linksCollection = JSON.parse(localStorage.getItem('linksCollection'));
-		const newLinksCollection = linksCollection.filter((url) => url.id !== id);
-		const newUrlList = urlList.filter((url) => url.id !== id);
-		elem.classList.add('deleting-item');
-		M.Toast.dismissAll();
+		localForage.getItem('linksCollection').then((links) => {
+			const newLinksCollection = links.filter((url) => url.id !== id);
+			const newUrlList = urlList.filter((url) => url.id !== id);
 
-		localStorage.setItem('linksCollection', JSON.stringify(newLinksCollection));
-		setUrlList(newUrlList);
-		setTimeout(() => {
-			elem.classList.remove('deleting-item');
-		}, 500);
-
-		M.toast({
-			html: `<i class='material-icons red-text'>check_circle</i> &nbsp; URL Deleted`,
-			classes: 'delete-toast',
+			elem.classList.add('deleting-item');
+			M.Toast.dismissAll();
+			localForage.setItem('linksCollection', newLinksCollection);
+			setUrlList(newUrlList);
+			setTimeout(() => elem.classList.remove('deleting-item'), 500);
+			M.toast({
+				html: `<i class='material-icons red-text'>check_circle</i> &nbsp; URL Deleted`,
+				classes: 'delete-toast',
+			});
 		});
 	};
 
 	const editURL = ({ id }) => {
-		const linksCollection = JSON.parse(localStorage.getItem('linksCollection'));
-		const newLinksCollection = linksCollection.map((url) =>
-			url.id === id ? editObj : url
-		);
-		const newUrlList = urlList.map((url) => (url.id === id ? editObj : url));
+		localForage.getItem('linksCollection').then((links) => {
+			const newUrlList = urlList.map((url) => (url.id === id ? editObj : url));
+			const newLinksCollection = links.map((url) =>
+				url.id === id ? editObj : url
+			);
 
-		setUrlList(newUrlList);
-		localStorage.setItem('linksCollection', JSON.stringify(newLinksCollection));
+			setUrlList(newUrlList);
+			localForage.setItem('linksCollection', newLinksCollection);
+		});
 	};
 
 	return (
@@ -140,19 +136,20 @@ function List({ match }) {
 					<CollectionItem
 						key={index}
 						onClick={(ev) => {
-							const linksCollection = JSON.parse(
-								localStorage.getItem('linksCollection')
-							);
-							const id = ev.target.parentElement.parentElement.parentElement
-								.querySelector('.shorturl')
-								.innerText.replace('https://is.gd/', '');
+							const { target, currentTarget } = ev;
 
-							if (ev.target.classList.contains('edit')) {
-								let obj = linksCollection.find((url) => url.id === id);
-								setEditObj({ title: '', ...obj });
-							} else if (ev.target.classList.contains('delete')) {
-								deleteURL(id, ev.currentTarget);
-							}
+							localForage.getItem('linksCollection').then((links) => {
+								const id = target.parentElement.parentElement.parentElement
+									.querySelector('.shorturl')
+									.innerText.replace('https://is.gd/', '');
+
+								if (target.classList.contains('edit')) {
+									let obj = links.find((url) => url.id === id);
+									setEditObj({ title: '', ...obj });
+								} else if (target.classList.contains('delete')) {
+									deleteURL(id, currentTarget);
+								}
+							});
 						}}>
 						<Row>
 							<Col s={editModeActive ? 12 : 10} style={{ padding: '0px' }}>
