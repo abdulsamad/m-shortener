@@ -134,7 +134,7 @@ function ListHead({
 						</a>
 						<a href='#!' onChange={importData}>
 							<Icon left>import_export</Icon>
-							<input type='file' className='import-file-input' />
+							<input type='file' accept='.json' className='import-file-input' />
 						</a>
 						<a href='#!' onClick={exportData}>
 							<Icon left>cloud_download</Icon> Export
@@ -170,7 +170,7 @@ function ListHead({
 					}>
 					<a href='#!' onChange={importData}>
 						<Icon left>import_export</Icon>
-						<input type='file' className='import-file-input' />
+						<input type='file' accept='.json' className='import-file-input' />
 					</a>
 				</Dropdown>
 			)}
