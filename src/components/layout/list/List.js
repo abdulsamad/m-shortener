@@ -106,6 +106,23 @@ function List({ match }) {
 		});
 	};
 
+	const onEditClick = (ev) => {
+		const { target, currentTarget } = ev;
+
+		localForage.getItem('linksCollection').then((links) => {
+			const id = target.parentElement.parentElement.parentElement
+				.querySelector('.shorturl')
+				.innerText.replace('https://is.gd/', '');
+
+			if (target.classList.contains('edit')) {
+				let obj = links.find((url) => url.id === id);
+				setEditObj({ title: '', ...obj });
+			} else if (target.classList.contains('delete')) {
+				deleteURL(id, currentTarget);
+			}
+		});
+	};
+
 	return (
 		<section className='links-collection z-depth-2'>
 			<Collection
@@ -133,24 +150,7 @@ function List({ match }) {
 					</CollectionItem>
 				)}
 				{urlList.map((link, index) => (
-					<CollectionItem
-						key={index}
-						onClick={(ev) => {
-							const { target, currentTarget } = ev;
-
-							localForage.getItem('linksCollection').then((links) => {
-								const id = target.parentElement.parentElement.parentElement
-									.querySelector('.shorturl')
-									.innerText.replace('https://is.gd/', '');
-
-								if (target.classList.contains('edit')) {
-									let obj = links.find((url) => url.id === id);
-									setEditObj({ title: '', ...obj });
-								} else if (target.classList.contains('delete')) {
-									deleteURL(id, currentTarget);
-								}
-							});
-						}}>
+					<CollectionItem key={index} onClick={onEditClick}>
 						<Row>
 							<Col s={editModeActive ? 12 : 10} style={{ padding: '0px' }}>
 								{editModeActive && (

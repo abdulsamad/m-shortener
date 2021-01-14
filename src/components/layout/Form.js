@@ -66,9 +66,7 @@ function Form() {
 			: `https://is.gd/create.php?format=json&url=${url}`;
 
 		axios
-			.get(isgdAPI, {
-				timeout: 5000,
-			})
+			.get(isgdAPI, { timeout: 5000 })
 			.then((res) => {
 				const { shorturl } = res.data;
 				setShortenURL(shorturl);
@@ -113,7 +111,10 @@ function Form() {
 			urlInput.current.value = text;
 			urlInput.current.blur();
 		} catch (err) {
-			alert('Clipboard permission not granted.');
+			M.toast({
+				html: `<i class='material-icons red-text'>error</i> &nbsp; Clipboard permission not granted.`,
+				classes: 'error-toast',
+			});
 		}
 	};
 
@@ -137,7 +138,6 @@ function Form() {
 								/>
 								<Button
 									flat
-									tabIndex='-1'
 									className='paste-button hide'
 									style={{
 										padding: '0',
