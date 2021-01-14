@@ -16,6 +16,7 @@ function Form() {
 	const [shortenURL, setShortenURL] = useState('');
 	const [titleFetched, setTitleFetched] = useState(null);
 	const urlInput = useRef();
+	const submitRef = useRef();
 
 	const storeUrl = (url, shorturl, stats) => {
 		const key = 'linksCollection';
@@ -118,6 +119,15 @@ function Form() {
 		}
 	};
 
+	const onEnterKeyPress = (ev) => {
+		const code = ev.keyCode ? ev.keyCode : ev.which;
+
+		if (code === 13) {
+			ev.preventDefault();
+			submitRef.current.click();
+		}
+	};
+
 	return (
 		<section className='form-container'>
 			<CardPanel className='z-depth-2'>
@@ -134,16 +144,15 @@ function Form() {
 									ref={urlInput}
 									placeholder='https://mylongurl.com/'
 									className='validate url'
+									onKeyDown={onEnterKeyPress}
 									required
 								/>
 								<Button
-									flat
 									className='paste-button hide'
-									style={{
-										padding: '0',
-									}}
 									waves='light'
-									onClick={pasteLongURL}>
+									style={{ padding: '0' }}
+									onClick={pasteLongURL}
+									flat>
 									<Icon>content_paste</Icon>
 								</Button>
 							</div>
@@ -161,12 +170,10 @@ function Form() {
 							<Button
 								node='button'
 								type='submit'
-								style={{
-									marginRight: '5px',
-								}}
+								style={{ marginRight: '5px' }}
 								waves='light'>
 								<Icon left>content_cut</Icon>
-								<span>Shorten It</span>
+								<span ref={submitRef}>Shorten It</span>
 							</Button>
 						</form>
 						{shortenURL && (
@@ -182,18 +189,14 @@ function Form() {
 										flat
 										aria-hidden='true'
 										className='shorturl-title-preload'
-										style={{
-											padding: '0',
-										}}
+										style={{ padding: '0' }}
 										waves='light'>
 										{titleFetched === null && (
 											<Preloader
 												active
 												color='blue'
 												tooltip='Fetching link title'
-												tooltipOptions={{
-													position: 'top',
-												}}
+												tooltipOptions={{ position: 'top' }}
 												flashing={false}
 												size='small'
 											/>
@@ -201,9 +204,7 @@ function Form() {
 										{titleFetched === false && (
 											<Icon
 												tooltip='Fetching link title failed'
-												tooltipOptions={{
-													position: 'top',
-												}}
+												tooltipOptions={{ position: 'top' }}
 												className='red-text'>
 												highlight_off
 											</Icon>
@@ -211,9 +212,7 @@ function Form() {
 										{titleFetched && (
 											<Icon
 												tooltip='Link title fetched'
-												tooltipOptions={{
-													position: 'top',
-												}}
+												tooltipOptions={{ position: 'top' }}
 												className='green-text'>
 												check_circle
 											</Icon>
@@ -225,9 +224,7 @@ function Form() {
 										small
 										onClick={shareShortLink}
 										node='button'
-										style={{
-											marginRight: '5px',
-										}}
+										style={{ marginRight: '5px' }}
 										waves='light'>
 										<Icon left>share</Icon>
 										<span>Share</span>
