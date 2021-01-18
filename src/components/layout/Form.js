@@ -31,9 +31,22 @@ function Form() {
 		localForage
 			.getItem(key)
 			.then((res) => {
-				res
-					? localForage.setItem(key, [objStr, ...res])
-					: localForage.setItem(key, [objStr]);
+				// Add title to the link optional
+				getTitle(url)
+					.then((title) => {
+						res
+							? localForage.setItem(key, [{ ...objStr, title }, ...res])
+							: localForage.setItem(key, [{ ...objStr, title }]);
+
+						setTitleFetched(true);
+					})
+					.catch(() => {
+						res
+							? localForage.setItem(key, [objStr, ...res])
+							: localForage.setItem(key, [objStr]);
+
+						setTitleFetched(false);
+					});
 			})
 			.catch((err) => {
 				M.toast({
@@ -41,19 +54,6 @@ function Form() {
 					classes: 'error-toast',
 				});
 			});
-
-		// Add title optional
-		getTitle(url)
-			.then((res) => {
-				localForage.getItem(key).then((links) => {
-					if (res === 'string') {
-						links[0].title = res.trim();
-						localForage.setItem(key, links);
-					}
-					setTitleFetched(true);
-				});
-			})
-			.catch(() => setTitleFetched(false));
 	};
 
 	const onSubmit = (ev) => {
