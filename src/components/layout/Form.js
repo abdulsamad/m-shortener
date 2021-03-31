@@ -78,7 +78,7 @@ function Form() {
 	const getTitle = (url) => {
 		return axios
 			.get(
-				`http://api.linkpreview.net?key=${process.env.REACT_APP_LINK_PREVIEW_API_KEY}&q=${url}`,
+				`https://api.linkpreview.net?key=${process.env.REACT_APP_LINK_PREVIEW_API_KEY}&q=${url}`,
 				{
 					timeout: 5000,
 				},
