@@ -1,13 +1,6 @@
 import React, { useState, useRef } from 'react';
 import M from 'materialize-css';
-import {
-	Button,
-	CardPanel,
-	Col,
-	Icon,
-	Row,
-	Preloader,
-} from 'react-materialize';
+import { Button, CardPanel, Col, Icon, Row, Preloader } from 'react-materialize';
 import Copy from '../utils/Copy';
 import axios from 'axios';
 import localForage from 'localforage';
@@ -41,9 +34,7 @@ function Form() {
 						setTitleFetched(true);
 					})
 					.catch(() => {
-						res
-							? localForage.setItem(key, [objStr, ...res])
-							: localForage.setItem(key, [objStr]);
+						res ? localForage.setItem(key, [objStr, ...res]) : localForage.setItem(key, [objStr]);
 
 						setTitleFetched(false);
 					});
@@ -70,6 +61,7 @@ function Form() {
 			.get(isgdAPI, { timeout: 5000 })
 			.then((res) => {
 				const { shorturl } = res.data;
+
 				setShortenURL(shorturl);
 				storeUrl(url.href, shorturl, stats);
 			})
@@ -85,16 +77,13 @@ function Form() {
 
 	const getTitle = (url) => {
 		return axios
-			.get(`https://cors-anywhere.herokuapp.com/${url}`, {
-				timeout: 5000,
-			})
-			.then((res) => {
-				const doc = new DOMParser().parseFromString(res.data, 'text/html');
-				const title = doc.querySelectorAll('title')[0];
-				if (title) {
-					return title.innerText.trim();
-				}
-			});
+			.get(
+				`http://api.linkpreview.net?key=${process.env.REACT_APP_LINK_PREVIEW_API_KEY}&q=${url}`,
+				{
+					timeout: 5000,
+				},
+			)
+			.then(({ data: { title, description, image } }) => title);
 	};
 
 	const shareShortLink = () => {
@@ -167,11 +156,7 @@ function Form() {
 									</div>
 								</Col>
 							</Row>
-							<Button
-								node='button'
-								type='submit'
-								style={{ marginRight: '5px' }}
-								waves='light'>
+							<Button node='button' type='submit' style={{ marginRight: '5px' }} waves='light'>
 								<Icon left>content_cut</Icon>
 								<span ref={submitRef}>Shorten It</span>
 							</Button>
@@ -179,12 +164,7 @@ function Form() {
 						{shortenURL && (
 							<div>
 								<div className='input-field'>
-									<input
-										type='url'
-										className='shorten-url'
-										value={shortenURL}
-										disabled
-									/>
+									<input type='url' className='shorten-url' value={shortenURL} disabled />
 									<Button
 										flat
 										aria-hidden='true'
