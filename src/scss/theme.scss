@@ -18,104 +18,104 @@ $secondary-color: color('blue', 'base');
 // }
 
 .dark {
-	--color: #f2f2f2;
-	--bg-color: #171717;
-	--lighter-bg-color: #222222;
+  --color: #f2f2f2;
+  --bg-color: #171717;
+  --lighter-bg-color: #222222;
 }
 
 .light {
-	--color: #1f1f1f;
-	--bg-color: #f5f5f5;
-	--lighter-bg-color: #ffffff;
+  --color: #1f1f1f;
+  --bg-color: #f5f5f5;
+  --lighter-bg-color: #ffffff;
 }
 
 body {
-	background-color: var(--bg-color);
-	color: var(--color);
-	transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+  background-color: var(--bg-color);
+  color: var(--color);
+  transition: background 500ms ease-in-out, color 1000ms ease-in-out;
 
-	.sidenav {
-		background-color: var(--bg-color);
+  .sidenav {
+    background-color: var(--bg-color);
 
-		& li > a {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			background-color: color('blue', 'base');
+    & li > a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: color('blue', 'base');
 
-			&:hover {
-				background-color: color('blue', 'base');
-			}
+      &:hover {
+        background-color: color('blue', 'base');
+      }
 
-			.switch {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-			}
+      .switch {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-			label {
-				display: flex;
-				align-items: center;
-			}
-		}
-	}
+      label {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
 
-	.modal {
-		background-color: var(--lighter-bg-color);
-		color: var(--color);
+  .modal {
+    background-color: var(--lighter-bg-color);
+    color: var(--color);
 
-		input {
-			background-color: var(--lighter-bg-color);
-			color: var(--color);
-		}
+    input {
+      background-color: var(--lighter-bg-color);
+      color: var(--color);
+    }
 
-		.modal-footer {
-			background-color: var(--bg-color);
+    .modal-footer {
+      background-color: var(--bg-color);
 
-			.btn-flat {
-				color: var(--color);
-			}
-		}
-	}
+      .btn-flat {
+        color: var(--color);
+      }
+    }
+  }
 
-	.dropdown-content {
-		background-color: var(--bg-color);
-	}
+  .dropdown-content {
+    background-color: var(--bg-color);
+  }
 }
 
 section {
-	.card-panel {
-		background-color: var(--lighter-bg-color);
-	}
+  .card-panel {
+    background-color: var(--lighter-bg-color);
+  }
 
-	.url,
-	.input-field input.shorten-url:disabled,
-	.search-input-container input {
-		color: var(--color);
-	}
+  .url,
+  .input-field input.shorten-url:disabled,
+  .search-input-container input {
+    color: var(--color);
+  }
 
-	.input-field input.shorten-url:disabled {
-		border-bottom: 1px dotted var(--color);
-	}
+  .input-field input.shorten-url:disabled {
+    border-bottom: 1px dotted var(--color);
+  }
 
-	.paste-button {
-		color: $primary-color;
-	}
+  .paste-button {
+    color: $primary-color;
+  }
 
-	.collection {
-		border: none;
-	}
+  .collection {
+    border: none;
+  }
 
-	.collection.with-header .collection-header,
-	.collection.with-header .collection-item {
-		background-color: var(--lighter-bg-color);
-	}
+  .collection.with-header .collection-header,
+  .collection.with-header .collection-item {
+    background-color: var(--lighter-bg-color);
+  }
 
-	.pagination {
-		li a {
-			color: var(--color);
-		}
-	}
+  .pagination {
+    li a {
+      color: var(--color);
+    }
+  }
 }
 
 @import '~materialize-css/sass/materialize';

@@ -1,44 +1,44 @@
 {
-	"name": "url-shortener-is.gd",
-	"version": "1.0.0",
-	"author": "Abdul Samad",
-	"private": true,
-	"homepage": "https://abdulsamad.github.io/url_shortener_is.gd",
-	"dependencies": {
-		"@testing-library/jest-dom": "^4.2.4",
-		"@testing-library/react": "^9.3.2",
-		"@testing-library/user-event": "^7.1.2",
-		"axios": "^0.21.1",
-		"localforage": "^1.9.0",
-		"materialize-css": "^1.0.0",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
-		"react-materialize": "^3.6.1",
-		"react-router-dom": "^5.2.0",
-		"react-scripts": "3.4.1"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"sass": "^1.26.3"
-	}
+  "name": "url-shortener-is.gd",
+  "version": "1.0.0",
+  "author": "Abdul Samad",
+  "private": true,
+  "homepage": "https://abdulsamad.github.io/url_shortener_is.gd",
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.21.1",
+    "localforage": "^1.9.0",
+    "materialize-css": "^1.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-materialize": "^3.6.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "sass": "^1.26.3"
+  }
 }

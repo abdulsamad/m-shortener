@@ -3,180 +3,180 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
 .App {
-	position: relative;
-	min-height: 100vh;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .nav-wrapper {
-	.brand-logo {
-		font-weight: 700;
-		font-size: 1.8rem;
-		margin-left: 5px;
-	}
+  .brand-logo {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-left: 5px;
+  }
 }
 
 section {
-	margin: 20px 0;
+  margin: 20px 0;
 
-	.list-head {
-		display: flex;
-		justify-content: space-between;
-		padding: 10px 20px;
+  .list-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
 
-		.heading {
-			font-size: 1.2rem;
-			font-weight: 600;
-		}
-	}
+    .heading {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  }
 
-	&.links-collection {
-		.row {
-			margin: 0;
-		}
+  &.links-collection {
+    .row {
+      margin: 0;
+    }
 
-		.pagination {
-			user-select: none;
-		}
-	}
+    .pagination {
+      user-select: none;
+    }
+  }
 
-	.collection {
-		perspective: 1080px;
+  .collection {
+    perspective: 1080px;
 
-		.collection-item {
-			padding: 10px 10px;
-			transform-origin: bottom;
-			transition: opacity 0.5s, transform 0.5s;
-			transform: rotateX(0deg);
+    .collection-item {
+      padding: 10px 10px;
+      transform-origin: bottom;
+      transition: opacity 0.5s, transform 0.5s;
+      transform: rotateX(0deg);
 
-			.truncate:hover {
-				text-overflow: unset;
-				overflow-x: auto;
-			}
+      .truncate:hover {
+        text-overflow: unset;
+        overflow-x: auto;
+      }
 
-			@include mobile {
-				.secondary-copy-btn:active,
-				.edit-mode-icons a:active {
-					color: #9e9e9e;
-				}
+      @include mobile {
+        .secondary-copy-btn:active,
+        .edit-mode-icons a:active {
+          color: #9e9e9e;
+        }
 
-				.secondary-content .material-icons {
-					margin: 0;
-				}
-			}
+        .secondary-content .material-icons {
+          margin: 0;
+        }
+      }
 
-			@include desktop {
-				.secondary-copy-btn:hover,
-				.edit-mode-icons a:hover {
-					color: #9e9e9e;
-				}
-			}
-		}
+      @include desktop {
+        .secondary-copy-btn:hover,
+        .edit-mode-icons a:hover {
+          color: #9e9e9e;
+        }
+      }
+    }
 
-		// Animation
-		.deleting-item {
-			opacity: 0;
-			color: transparent;
-			transform: rotateX(60deg);
-		}
-	}
+    // Animation
+    .deleting-item {
+      opacity: 0;
+      color: transparent;
+      transform: rotateX(60deg);
+    }
+  }
 
-	.url:placeholder-shown + .paste-button {
-		display: block !important;
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-	}
+  .url:placeholder-shown + .paste-button {
+    display: block !important;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-	.shorturl-title-preload {
-		display: block !important;
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
+  .shorturl-title-preload {
+    display: block !important;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 
-		.preloader-wrapper {
-			height: 25px;
-			width: 25px;
-		}
-	}
+    .preloader-wrapper {
+      height: 25px;
+      width: 25px;
+    }
+  }
 
-	.collection.with-header .collection-header {
-		padding: 0;
-	}
+  .collection.with-header .collection-header {
+    padding: 0;
+  }
 
-	.search-input-container {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 5px 10px;
+  .search-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
 
-		.input-field {
-			margin: 0;
-			flex-basis: 100%;
-			margin-right: 10px;
-		}
-	}
+    .input-field {
+      margin: 0;
+      flex-basis: 100%;
+      margin-right: 10px;
+    }
+  }
 }
 
 .import-file-input {
-	color: transparent;
+  color: transparent;
 
-	&::-webkit-file-upload-button {
-		visibility: hidden;
-	}
-	&::before {
-		content: 'Import';
-		color: $secondary-color;
-		display: inline-block;
-		background: transparent;
-		border: none;
-		// padding: 5px	 8px;
-		outline: none;
-		white-space: nowrap;
-		-webkit-user-select: none;
-		cursor: pointer;
-	}
-	&:hover::before {
-		border-color: black;
-	}
-	&:active {
-		outline: 0;
-	}
+  &::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  &::before {
+    content: 'Import';
+    color: $secondary-color;
+    display: inline-block;
+    background: transparent;
+    border: none;
+    // padding: 5px	 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+  }
+  &:hover::before {
+    border-color: black;
+  }
+  &:active {
+    outline: 0;
+  }
 }
 
 /* Materialize Reset */
 
 #list-dropdown {
-	width: auto !important;
+  width: auto !important;
 
-	a > i {
-		margin-right: 16px;
-	}
+  a > i {
+    margin-right: 16px;
+  }
 
-	li > * {
-		display: flex;
-		align-items: center;
-	}
+  li > * {
+    display: flex;
+    align-items: center;
+  }
 }
 
 #toast-container {
-	top: auto !important;
-	right: auto !important;
-	bottom: 10%;
-	left: 5%;
+  top: auto !important;
+  right: auto !important;
+  bottom: 10%;
+  left: 5%;
 
-	@include mobile {
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		min-width: 50%;
-		max-width: 100%;
-		bottom: 50px;
-		left: 50%;
-		transform: translateX(-50%);
-	}
+  @include mobile {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 50%;
+    max-width: 100%;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
