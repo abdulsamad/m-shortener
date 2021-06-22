@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Abdul Samad",
   "private": true,
-  "homepage": "https://abdulsamad.github.io/url_shortener_is.gd",
+  "homepage": "https://abdulsamad.github.io/url-shortener-is.gd",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
