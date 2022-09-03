@@ -1,7 +1,7 @@
-@import '~materialize-css/sass/components/color-variables';
+@import "~materialize-css/sass/components/color-variables";
 
-$primary-color: color('blue', 'base');
-$secondary-color: color('blue', 'base');
+$primary-color: color("blue", "base");
+$secondary-color: color("blue", "base");
 
 // :root {
 // 	--color: #1f1f1f;
@@ -41,10 +41,10 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: color('blue', 'base');
+      background-color: color("blue", "base");
 
       &:hover {
-        background-color: color('blue', 'base');
+        background-color: color("blue", "base");
       }
 
       .switch {
@@ -118,5 +118,5 @@ section {
   }
 }
 
-@import '~materialize-css/sass/materialize';
-@import 'mixins';
+@import "~materialize-css/sass/materialize";
+@import "mixins";

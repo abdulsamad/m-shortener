@@ -1,23 +1,30 @@
-import React, { useState, useRef } from 'react';
-import M from 'materialize-css';
-import { Button, CardPanel, Col, Icon, Row, Preloader } from 'react-materialize';
-import Copy from '../utils/Copy';
-import axios from 'axios';
-import localForage from 'localforage';
+import React, { useState, useRef } from "react";
+import M from "materialize-css";
+import {
+  Button,
+  CardPanel,
+  Col,
+  Icon,
+  Row,
+  Preloader,
+} from "react-materialize";
+import Copy from "../utils/Copy";
+import axios from "axios";
+import localForage from "localforage";
 
 function Form() {
-  const [shortenURL, setShortenURL] = useState('');
+  const [shortenURL, setShortenURL] = useState("");
   const [titleFetched, setTitleFetched] = useState(null);
   const urlInput = useRef();
   const submitRef = useRef();
 
   const storeUrl = (url, shorturl, stats) => {
-    const key = 'linksCollection';
+    const key = "linksCollection";
     const objStr = {
       url,
       shorturl,
       stats,
-      id: shorturl.replace('https://is.gd/', ''),
+      id: shorturl.replace("https://is.gd/", ""),
       timestamp: Date.now(),
     };
 
@@ -34,7 +41,9 @@ function Form() {
             setTitleFetched(true);
           })
           .catch(() => {
-            res ? localForage.setItem(key, [objStr, ...res]) : localForage.setItem(key, [objStr]);
+            res
+              ? localForage.setItem(key, [objStr, ...res])
+              : localForage.setItem(key, [objStr]);
 
             setTitleFetched(false);
           });
@@ -42,7 +51,7 @@ function Form() {
       .catch((err) => {
         M.toast({
           html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-          classes: 'error-toast',
+          classes: "error-toast",
         });
       });
   };
@@ -68,11 +77,11 @@ function Form() {
       .catch((err) => {
         M.toast({
           html: `<i class='material-icons red-text'>error</i> &nbsp; ${err.message}`,
-          classes: 'error-toast',
+          classes: "error-toast",
         });
       });
 
-    ev.target.elements.url.value = '';
+    ev.target.elements.url.value = "";
   };
 
   const getTitle = (url) => {
@@ -81,7 +90,7 @@ function Form() {
         `https://api.linkpreview.net?key=${process.env.REACT_APP_LINK_PREVIEW_API_KEY}&q=${url}`,
         {
           timeout: 5000,
-        },
+        }
       )
       .then(({ data: { title, description, image } }) => title);
   };
@@ -89,7 +98,7 @@ function Form() {
   const shareShortLink = () => {
     const shareData = {
       title: `Created with ${document.title}`,
-      text: 'Check this out!',
+      text: "Check this out!",
       url: shortenURL,
     };
     navigator.share(shareData);
@@ -103,7 +112,7 @@ function Form() {
     } catch (err) {
       M.toast({
         html: `<i class='material-icons red-text'>error</i> &nbsp; Clipboard permission not granted.`,
-        classes: 'error-toast',
+        classes: "error-toast",
       });
     }
   };
@@ -118,82 +127,96 @@ function Form() {
   };
 
   return (
-    <section className='form-container'>
-      <CardPanel className='z-depth-2'>
+    <section className="form-container">
+      <CardPanel className="z-depth-2">
         <Row>
           <Col s={12}>
-            <form onSubmit={onSubmit} className='form'>
-              <div className='input-field'>
-                <label className='active' htmlFor='url'>
+            <form onSubmit={onSubmit} className="form">
+              <div className="input-field">
+                <label className="active" htmlFor="url">
                   Enter a Long URL
                 </label>
                 <input
-                  type='url'
-                  name='url'
+                  type="url"
+                  name="url"
                   ref={urlInput}
-                  placeholder='https://mylongurl.com/'
-                  className='validate url'
+                  placeholder="https://mylongurl.com/"
+                  className="validate url"
                   onKeyDown={onEnterKeyPress}
                   required
                 />
                 <Button
-                  className='paste-button hide'
-                  waves='light'
-                  style={{ padding: '0' }}
+                  className="paste-button hide"
+                  waves="light"
+                  style={{ padding: "0" }}
                   onClick={pasteLongURL}
-                  flat>
+                  flat
+                >
                   <Icon>content_paste</Icon>
                 </Button>
               </div>
               <Row>
                 <Col s={12}>
-                  <div className='switch'>
+                  <div className="switch">
                     <label>
                       <span>Show Stats</span>
-                      <input type='checkbox' name='stats' />
-                      <span className='lever'></span>
+                      <input type="checkbox" name="stats" />
+                      <span className="lever"></span>
                     </label>
                   </div>
                 </Col>
               </Row>
-              <Button node='button' type='submit' style={{ marginRight: '5px' }} waves='light'>
+              <Button
+                node="button"
+                type="submit"
+                style={{ marginRight: "5px" }}
+                waves="light"
+              >
                 <Icon left>content_cut</Icon>
                 <span ref={submitRef}>Shorten It</span>
               </Button>
             </form>
             {shortenURL && (
               <div>
-                <div className='input-field'>
-                  <input type='url' className='shorten-url' value={shortenURL} disabled />
+                <div className="input-field">
+                  <input
+                    type="url"
+                    className="shorten-url"
+                    value={shortenURL}
+                    disabled
+                  />
                   <Button
                     flat
-                    aria-hidden='true'
-                    className='shorturl-title-preload'
-                    style={{ padding: '0' }}
-                    waves='light'>
+                    aria-hidden="true"
+                    className="shorturl-title-preload"
+                    style={{ padding: "0" }}
+                    waves="light"
+                  >
                     {titleFetched === null && (
                       <Preloader
                         active
-                        color='blue'
-                        tooltip='Fetching link title'
-                        tooltipOptions={{ position: 'top' }}
+                        color="blue"
+                        tooltip="Fetching link title"
+                        tooltipOptions={{ position: "top" }}
                         flashing={false}
-                        size='small'
+                        size="small"
                       />
                     )}
                     {titleFetched === false && (
                       <Icon
-                        tooltip='Fetching link title failed'
-                        tooltipOptions={{ position: 'top' }}
-                        className='red-text'>
+                        tooltip="Fetching link title failed"
+                        tooltipOptions={{ position: "top" }}
+                        className="red-text"
+                      >
                         highlight_off
                       </Icon>
                     )}
                     {titleFetched && (
                       <Icon
-                        tooltip='Link title fetched'
-                        tooltipOptions={{ position: 'top' }}
-                        className='green-text'>
+                        tooltip="Link title fetched"
+                        tooltipOptions={{ position: "top" }}
+                        className="green-text"
+                      >
                         check_circle
                       </Icon>
                     )}
@@ -203,18 +226,19 @@ function Form() {
                   <Button
                     small
                     onClick={shareShortLink}
-                    node='button'
-                    style={{ marginRight: '5px' }}
-                    waves='light'>
+                    node="button"
+                    style={{ marginRight: "5px" }}
+                    waves="light"
+                  >
                     <Icon left>share</Icon>
                     <span>Share</span>
                   </Button>
                 )}
                 <Copy
                   copyText={shortenURL}
-                  classes='btn btn-small waves-effect waves-light'
-                  btnText='Copy'
-                  title='Copy ShortURL to Clipboard'
+                  classes="btn btn-small waves-effect waves-light"
+                  btnText="Copy"
+                  title="Copy ShortURL to Clipboard"
                 />
               </div>
             )}

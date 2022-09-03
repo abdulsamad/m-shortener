@@ -1,6 +1,6 @@
-@import 'theme';
-@import 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap';
-@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import "theme";
+@import "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 .App {
   position: relative;
@@ -130,7 +130,7 @@ section {
     visibility: hidden;
   }
   &::before {
-    content: 'Import';
+    content: "Import";
     color: $secondary-color;
     display: inline-block;
     background: transparent;
