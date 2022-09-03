@@ -30,25 +30,28 @@ function List({ match }) {
     id: '',
   });
 
+  const { page } = match.params;
+
   useEffect(() => {
     localForage.getItem('linksCollection').then((links) => {
-      const { page } = match.params;
+      if (!links) return;
 
-      if (links) {
-        let num = 1;
-        const step = 10;
-        const length = links.length;
-        while (step * num < length) {
-          num++;
-        }
+      let num = 1;
+      const step = 10;
+      const length = links.length;
 
-        setTotalPages(num);
-        if (match.path !== '/') setActivePage(parseInt(page));
-
-        setUrlList(links.slice(activePage * step - step, activePage * step));
+      while (step * num < length) {
+        num++;
       }
+
+      setTotalPages(num);
+      setUrlList(links.slice(activePage * step - step, activePage * step));
     });
-  }, [totalPages, activePage, match]);
+  }, [activePage, match]);
+
+  useEffect(() => {
+    if (match.path !== '/') setActivePage(parseInt(page));
+  }, [page, match]);
 
   const onSearch = (ev, step = 10) => {
     const value = ev.target.value;
@@ -117,7 +120,7 @@ function List({ match }) {
   };
 
   return (
-    <section className='links-collection z-depth-2'>
+    <section className="links-collection z-depth-2">
       <Collection
         header={
           <ListHead
@@ -131,14 +134,14 @@ function List({ match }) {
         {urlList.length === 0 && (
           <CollectionItem>
             <br />
-            <h5 className='grey-text'>Your history will appear here.</h5>
+            <h5 className="grey-text">Your history will appear here.</h5>
             <br />
           </CollectionItem>
         )}
         {activePage > totalPages && urlList.length > 0 && (
           <CollectionItem>
             <br />
-            <h5 className='grey-text'>Page not found</h5>
+            <h5 className="grey-text">Page not found</h5>
             <br />
           </CollectionItem>
         )}
@@ -147,41 +150,41 @@ function List({ match }) {
             <Row>
               <Col s={editModeActive ? 12 : 10} style={{ padding: '0px' }}>
                 {editModeActive && (
-                  <div className='edit-mode-icons'>
-                    <a href='#Edit-Modal' className='modal-trigger'>
-                      <Icon left className='edit'>
+                  <div className="edit-mode-icons">
+                    <a href="#Edit-Modal" className="modal-trigger">
+                      <Icon left className="edit">
                         edit
                       </Icon>
                     </a>
-                    <a href='#!'>
-                      <Icon left className='delete'>
+                    <a href="#!">
+                      <Icon left className="delete">
                         delete
                       </Icon>
                     </a>
                   </div>
                 )}
-                <div className='truncate' title='Title'>
+                <div className="truncate" title="Title">
                   {link.title ? link.title : link.url}
                 </div>
-                <div className='truncate blue-text shorturl' title='Short URL'>
+                <div className="truncate blue-text shorturl" title="Short URL">
                   {link.shorturl}
                 </div>
               </Col>
               {!editModeActive && (
-                <Col s={2} className='center-align'>
+                <Col s={2} className="center-align">
                   <Copy
                     copyText={link.shorturl}
-                    classes='secondary-content secondary-copy-btn'
-                    btnText=''
-                    title='Copy ShortURL to Clipboard'
+                    classes="secondary-content secondary-copy-btn"
+                    btnText=""
+                    title="Copy ShortURL to Clipboard"
                   />
                   {link.stats && !editModeActive && (
                     <a
                       href={`https://is.gd/stats.php?url=${link.id}`}
-                      target='_blank'
-                      rel='noreferrer noopener'
-                      className='secondary-content'
-                      title='Check Statistics'>
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="secondary-content"
+                      title="Check Statistics">
                       <Icon left>show_chart</Icon>
                     </a>
                   )}
@@ -191,7 +194,7 @@ function List({ match }) {
           </CollectionItem>
         ))}
         {!showSearch && (
-          <CollectionItem className='center-align'>
+          <CollectionItem className="center-align">
             <Pagination
               activePage={activePage}
               items={totalPages}
@@ -207,19 +210,19 @@ function List({ match }) {
       </Collection>
       <Modal
         actions={[
-          <Button modal='close' node='button' className='red'>
+          <Button modal="close" node="button" className="red">
             Cancel
           </Button>,
           <span>&nbsp;&nbsp;&nbsp;</span>,
-          <Button modal='close' node='button' className='blue' onClick={() => editURL(editObj)}>
+          <Button modal="close" node="button" className="blue" onClick={() => editURL(editObj)}>
             Edit
           </Button>,
         ]}
-        className='edit-modal'
+        className="edit-modal"
         bottomSheet={false}
         fixedFooter
-        header='Edit URL'
-        id='Edit-Modal'
+        header="Edit URL"
+        id="Edit-Modal"
         options={{
           dismissible: true,
           endingTop: '10%',
@@ -235,27 +238,27 @@ function List({ match }) {
         }}>
         <div style={{ paddingTop: '10px' }}>
           <TextInput
-            type='text'
-            icon='title'
+            type="text"
+            icon="title"
             value={editObj.title}
-            name='title'
+            name="title"
             onChange={(ev) => setEditObj({ ...editObj, [ev.target.name]: ev.target.value })}
-            label='Title'
+            label="Title"
           />
           <TextInput
-            type='url'
-            icon='public'
+            type="url"
+            icon="public"
             value={editObj.url}
-            name='url'
-            label='Full URL'
+            name="url"
+            label="Full URL"
             readOnly
           />
           <TextInput
-            type='url'
-            icon='link'
+            type="url"
+            icon="link"
             value={editObj.shorturl}
-            name='shorturl'
-            label='Short URL'
+            name="shorturl"
+            label="Short URL"
             readOnly
           />
         </div>

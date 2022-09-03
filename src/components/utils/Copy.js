@@ -21,7 +21,7 @@ function Copy({ copyText, classes, btnText, title }) {
 
   return (
     <Fragment>
-      <a href='#!' className={classes} onClick={() => copyShortLink(copyText)} title={title}>
+      <a href="#!" className={classes} onClick={() => copyShortLink(copyText)} title={title}>
         <Icon left>content_copy</Icon> {btnText}
       </a>
     </Fragment>

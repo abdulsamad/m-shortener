@@ -77,24 +77,24 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
 
   if (showSearch)
     return (
-      <div className='search-input-container'>
-        <TextInput placeholder='Enter Search Keyword' onKeyUp={onSearch} autoFocus />
-        <Button className='red darken-1' onClick={onSearchCancel}>
+      <div className="search-input-container">
+        <TextInput placeholder="Enter Search Keyword" onKeyUp={onSearch} autoFocus />
+        <Button className="red darken-1" onClick={onSearchCancel}>
           <Icon>close</Icon>
         </Button>
       </div>
     );
 
   return (
-    <div className='list-head'>
-      <div className='heading'>Recent Shorten Links</div>
+    <div className="list-head">
+      <div className="heading">Recent Shorten Links</div>
       {linksCollection && (
-        <span className='list-dropdown'>
-          <a href='#!' onClick={() => setShowSearch(true)}>
+        <span className="list-dropdown">
+          <a href="#!" onClick={() => setShowSearch(true)}>
             <Icon>search</Icon>
           </a>
           <Dropdown
-            id='list-dropdown'
+            id="list-dropdown"
             options={{
               alignment: 'left',
               autoTrigger: true,
@@ -111,21 +111,21 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
               outDuration: 250,
             }}
             trigger={
-              <a href='#!'>
+              <a href="#!">
                 <Icon right>more_vert</Icon>
               </a>
             }>
-            <a href='#!' onClick={editMode}>
+            <a href="#!" onClick={editMode}>
               <Icon left>edit</Icon> Edit Mode
             </a>
-            <a href='#!' onChange={importData}>
+            <a href="#!" onChange={importData}>
               <Icon left>import_export</Icon>
-              <input type='file' accept='.json' className='import-file-input' />
+              <input type="file" accept=".json" className="import-file-input" />
             </a>
-            <a href='#!' onClick={exportData}>
+            <a href="#!" onClick={exportData}>
               <Icon left>cloud_download</Icon> Export
             </a>
-            <a className='modal-trigger' href='#delete-modal'>
+            <a className="modal-trigger" href="#delete-modal">
               <Icon left>delete</Icon> Delete All
             </a>
           </Dropdown>
@@ -133,7 +133,7 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
       )}
       {!linksCollection && (
         <Dropdown
-          id='list-dropdown'
+          id="list-dropdown"
           options={{
             alignment: 'left',
             autoTrigger: true,
@@ -150,21 +150,21 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
             outDuration: 250,
           }}
           trigger={
-            <a href='#!'>
+            <a href="#!">
               <Icon right>more_vert</Icon>
             </a>
           }>
-          <a href='#!' onChange={importData}>
+          <a href="#!" onChange={importData}>
             <Icon left>import_export</Icon>
-            <input type='file' accept='.json' className='import-file-input' />
+            <input type="file" accept=".json" className="import-file-input" />
           </a>
         </Dropdown>
       )}
       <Modal
         bottomSheet={false}
         fixedFooter={false}
-        header='Delete All links stored locally?'
-        id='delete-modal'
+        header="Delete All links stored locally?"
+        id="delete-modal"
         open={false}
         options={{
           dismissible: true,
@@ -184,11 +184,11 @@ function ListHead({ onSearch, onSearchCancel, showSearch, setShowSearch, editMod
         </h6>
         <p>
           Meanwhile, You can download your backup data&nbsp;
-          <a href='#!' onClick={exportData}>
+          <a href="#!" onClick={exportData}>
             here.
           </a>
         </p>
-        <Button className='red darken-1' node='button' onClick={deleteData}>
+        <Button className="red darken-1" node="button" onClick={deleteData}>
           Yes
         </Button>
       </Modal>
