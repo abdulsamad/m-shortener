@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "author": "Abdul Samad",
   "private": true,
-  "homepage": "https://abdulsamad.github.io/url-shortener-is.gd",
   "dependencies": {
     "axios": "^0.21.1",
     "localforage": "^1.10.0",
