@@ -5,15 +5,12 @@
   "private": true,
   "homepage": "https://abdulsamad.github.io/url-shortener-is.gd",
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.1",
-    "localforage": "^1.9.0",
+    "localforage": "^1.10.0",
     "materialize-css": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-materialize": "^3.6.1",
+    "react-materialize": "^3.10.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
@@ -39,6 +36,6 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.26.3"
+    "sass": "^1.54.8"
   }
 }
