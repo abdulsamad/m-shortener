@@ -57,6 +57,13 @@ section {
         overflow-x: auto;
       }
 
+      .secondary-copy-btn {
+        background: transparent;
+        padding: 5px;
+        border: none;
+        cursor: pointer;
+      }
+
       @include mobile {
         .secondary-copy-btn:active,
         .edit-mode-icons a:active {
