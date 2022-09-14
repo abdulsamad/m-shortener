@@ -1,39 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import M from 'materialize-css';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import M from "materialize-css";
 import {
   Collection,
   CollectionItem,
   Col,
   Icon,
-  Pagination,
+  // Pagination,
   Row,
   Modal,
   Button,
   TextInput,
-} from 'react-materialize';
-import Copy from '../../utils/Copy';
-import ListHead from './ListHead';
-import localForage from 'localforage';
+} from "react-materialize";
+import Copy from "../../utils/Copy";
+import ListHead from "./ListHead";
+import localForage from "localforage";
 
 function List({ match }) {
   const history = useHistory();
   const [urlList, setUrlList] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
+  // const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
   const [showSearch, setShowSearch] = useState(false);
   const [editModeActive, setEditModeActive] = useState(false);
   const [editObj, setEditObj] = useState({
-    url: '',
-    shorturl: '',
-    title: '',
-    id: '',
+    url: "",
+    shorturl: "",
+    title: "",
+    id: "",
   });
 
   const { page } = match.params;
 
   useEffect(() => {
-    localForage.getItem('linksCollection').then((links) => {
+    localForage.getItem("linksCollection").then((links) => {
       if (!links) return;
 
       // let num = 1;
@@ -51,19 +51,24 @@ function List({ match }) {
   }, [activePage, match]);
 
   useEffect(() => {
-    if (match.path !== '/') setActivePage(parseInt(page));
+    if (match.path !== "/") setActivePage(parseInt(page));
   }, [page, match]);
 
   const onSearch = (ev, step = 10) => {
     const value = ev.target.value;
 
-    localForage.getItem('linksCollection').then((links) => {
+    localForage.getItem("linksCollection").then((links) => {
       if (links) {
-        const regex = new RegExp(value, 'gi');
+        const regex = new RegExp(value, "gi");
         const filteredUrlList = links.filter((url) => {
-          if (!url.title) return url.url.match(regex) || url.shorturl.match(regex);
+          if (!url.title)
+            return url.url.match(regex) || url.shorturl.match(regex);
 
-          return url.url.match(regex) || url.shorturl.match(regex) || url.title.match(regex);
+          return (
+            url.url.match(regex) ||
+            url.shorturl.match(regex) ||
+            url.title.match(regex)
+          );
         });
 
         setUrlList(filteredUrlList.slice(0, step));
@@ -73,48 +78,50 @@ function List({ match }) {
 
   const onSearchCancel = () => {
     setShowSearch(false);
-    history.push('/');
+    history.push("/");
   };
 
   const deleteURL = (id, elem) => {
-    localForage.getItem('linksCollection').then((links) => {
+    localForage.getItem("linksCollection").then((links) => {
       const newLinksCollection = links.filter((url) => url.id !== id);
       const newUrlList = urlList.filter((url) => url.id !== id);
 
-      elem.classList.add('deleting-item');
+      elem.classList.add("deleting-item");
       M.Toast.dismissAll();
-      localForage.setItem('linksCollection', newLinksCollection);
+      localForage.setItem("linksCollection", newLinksCollection);
       setUrlList(newUrlList);
-      setTimeout(() => elem.classList.remove('deleting-item'), 500);
+      setTimeout(() => elem.classList.remove("deleting-item"), 500);
       M.toast({
         html: `<i class='material-icons red-text'>check_circle</i> &nbsp; URL Deleted`,
-        classes: 'delete-toast',
+        classes: "delete-toast",
       });
     });
   };
 
   const editURL = ({ id }) => {
-    localForage.getItem('linksCollection').then((links) => {
+    localForage.getItem("linksCollection").then((links) => {
       const newUrlList = urlList.map((url) => (url.id === id ? editObj : url));
-      const newLinksCollection = links.map((url) => (url.id === id ? editObj : url));
+      const newLinksCollection = links.map((url) =>
+        url.id === id ? editObj : url
+      );
 
       setUrlList(newUrlList);
-      localForage.setItem('linksCollection', newLinksCollection);
+      localForage.setItem("linksCollection", newLinksCollection);
     });
   };
 
   const onEditClick = (ev) => {
     const { target, currentTarget } = ev;
 
-    localForage.getItem('linksCollection').then((links) => {
+    localForage.getItem("linksCollection").then((links) => {
       const id = target.parentElement.parentElement.parentElement
-        .querySelector('.shorturl')
-        .innerText.replace('https://is.gd/', '');
+        .querySelector(".shorturl")
+        .innerText.replace("https://is.gd/", "");
 
-      if (target.classList.contains('edit')) {
+      if (target.classList.contains("edit")) {
         let obj = links.find((url) => url.id === id);
-        setEditObj({ title: '', ...obj });
-      } else if (target.classList.contains('delete')) {
+        setEditObj({ title: "", ...obj });
+      } else if (target.classList.contains("delete")) {
         deleteURL(id, currentTarget);
       }
     });
@@ -131,7 +138,8 @@ function List({ match }) {
             setShowSearch={setShowSearch}
             editMode={() => setEditModeActive((prevState) => !prevState)}
           />
-        }>
+        }
+      >
         {urlList.length === 0 && (
           <CollectionItem>
             <br />
@@ -139,17 +147,17 @@ function List({ match }) {
             <br />
           </CollectionItem>
         )}
-        {activePage > totalPages && urlList.length > 0 && (
+        {/* {activePage > totalPages && urlList.length > 0 && (
           <CollectionItem>
             <br />
             <h5 className="grey-text">Page not found</h5>
             <br />
           </CollectionItem>
-        )}
+        )} */}
         {urlList.map((link, index) => (
           <CollectionItem key={index} onClick={onEditClick}>
             <Row>
-              <Col s={editModeActive ? 12 : 10} style={{ padding: '0px' }}>
+              <Col s={editModeActive ? 12 : 10} style={{ padding: "0px" }}>
                 {editModeActive && (
                   <div className="edit-mode-icons">
                     <a href="#Edit-Modal" className="modal-trigger">
@@ -185,7 +193,8 @@ function List({ match }) {
                       target="_blank"
                       rel="noreferrer noopener"
                       className="secondary-content"
-                      title="Check Statistics">
+                      title="Check Statistics"
+                    >
                       <Icon left>show_chart</Icon>
                     </a>
                   )}
@@ -215,7 +224,12 @@ function List({ match }) {
             Cancel
           </Button>,
           <span>&nbsp;&nbsp;&nbsp;</span>,
-          <Button modal="close" node="button" className="blue" onClick={() => editURL(editObj)}>
+          <Button
+            modal="close"
+            node="button"
+            className="blue"
+            onClick={() => editURL(editObj)}
+          >
             Edit
           </Button>,
         ]}
@@ -226,7 +240,7 @@ function List({ match }) {
         id="Edit-Modal"
         options={{
           dismissible: true,
-          endingTop: '10%',
+          endingTop: "10%",
           inDuration: 250,
           onCloseEnd: null,
           onCloseStart: null,
@@ -235,15 +249,18 @@ function List({ match }) {
           opacity: 0.5,
           outDuration: 250,
           preventScrolling: true,
-          startingTop: '4%',
-        }}>
-        <div style={{ paddingTop: '10px' }}>
+          startingTop: "4%",
+        }}
+      >
+        <div style={{ paddingTop: "10px" }}>
           <TextInput
             type="text"
             icon="title"
             value={editObj.title}
             name="title"
-            onChange={(ev) => setEditObj({ ...editObj, [ev.target.name]: ev.target.value })}
+            onChange={(ev) =>
+              setEditObj({ ...editObj, [ev.target.name]: ev.target.value })
+            }
             label="Title"
           />
           <TextInput
