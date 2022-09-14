@@ -24,8 +24,7 @@ function App() {
         <div className="container">
           <Form />
           <Switch>
-            {/* <Redirect exact from="/" to="/1" /> */}
-            <Redirect exact from="/" />
+            <Redirect exact from="/" to="/1" />
             <Route exact from="/:page" component={List} />
           </Switch>
         </div>
