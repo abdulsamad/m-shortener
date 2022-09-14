@@ -12,4 +12,4 @@ A simple and minimal link shortener with backup and restore
 
 > **Note:** Short URL's cannot be deleted after generation and will continue to redirect to their intended destination even after you've deleted it locally.
 
-[![url shortener app screenshot](readme/url_shortener_screenshot.png "URL Shortener App Light/Dark Screenshot")](https://abdulsamad.github.io/url_shortener_is.gd)
+[![url shortener app screenshot](readme/url_shortener_screenshot.png "URL Shortener App Light/Dark Screenshot")](https://url-shortener-is-gd.netlify.app/)
