@@ -6,7 +6,7 @@ import {
   CollectionItem,
   Col,
   Icon,
-  // Pagination,
+  Pagination,
   Row,
   Modal,
   Button,
@@ -19,7 +19,7 @@ import localForage from "localforage";
 function List({ match }) {
   const history = useHistory();
   const [urlList, setUrlList] = useState([]);
-  // const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
   const [showSearch, setShowSearch] = useState(false);
   const [editModeActive, setEditModeActive] = useState(false);
@@ -36,17 +36,16 @@ function List({ match }) {
     localForage.getItem("linksCollection").then((links) => {
       if (!links) return;
 
-      // let num = 1;
-      // const step = 10;
-      // const length = links.length;
+      let num = 1;
+      const step = 10;
+      const length = links.length;
 
-      // while (step * num < length) {
-      //   num++;
-      // }
+      while (step * num < length) {
+        num++;
+      }
 
-      // setTotalPages(num);
-      // setUrlList(links.slice(activePage * step - step, activePage * step));
-      setUrlList(links);
+      setTotalPages(num);
+      setUrlList(links.slice(activePage * step - step, activePage * step));
     });
   }, [activePage, match]);
 
@@ -147,13 +146,13 @@ function List({ match }) {
             <br />
           </CollectionItem>
         )}
-        {/* {activePage > totalPages && urlList.length > 0 && (
+        {activePage > totalPages && urlList.length > 0 && (
           <CollectionItem>
             <br />
             <h5 className="grey-text">Page not found</h5>
             <br />
           </CollectionItem>
-        )} */}
+        )}
         {urlList.map((link, index) => (
           <CollectionItem key={index} onClick={onEditClick}>
             <Row>
@@ -203,7 +202,7 @@ function List({ match }) {
             </Row>
           </CollectionItem>
         ))}
-        {/* {!showSearch && (
+        {!showSearch && (
           <CollectionItem className="center-align">
             <Pagination
               activePage={activePage}
@@ -216,7 +215,7 @@ function List({ match }) {
               }}
             />
           </CollectionItem>
-        )} */}
+        )}
       </Collection>
       <Modal
         actions={[
