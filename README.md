@@ -1,6 +1,6 @@
 ## URL Shortener
 
-A link shortener with backup/restore
+A simple and minimal link shortener with backup and restore
 
 ### :sparkles: Features
 
