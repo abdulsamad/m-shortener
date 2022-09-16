@@ -1,4 +1,4 @@
-## URL Shortener
+## MShortener
 
 A simple and minimal link shortener with backup and restore
 
