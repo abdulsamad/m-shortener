@@ -20,7 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Navbar title="URL Shortener" />
+        <Navbar title="MShortener" />
         <div className="container">
           <Form />
           <Switch>

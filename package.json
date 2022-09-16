@@ -1,7 +1,7 @@
 {
-  "name": "url-shortener-is.gd",
+  "name": "mshortener",
   "version": "1.0.0",
-  "author": "Abdul Samad",
+  "author": "AbdulSamad Ansari",
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
