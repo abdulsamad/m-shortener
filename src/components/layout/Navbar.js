@@ -17,7 +17,6 @@ function Navbar({ title }) {
         alignLinks="right"
         brand={<a href={document.domain}>{title}</a>}
         menuIcon={<Icon>menu</Icon>}
-        centerChildren
         options={{
           draggable: true,
           edge: "left",
@@ -29,6 +28,7 @@ function Navbar({ title }) {
           outDuration: 200,
           preventScrolling: true,
         }}
+        centerChildren
       >
         <NavItem>
           <Switch
