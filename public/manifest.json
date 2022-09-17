@@ -1,6 +1,6 @@
 {
-  "short_name": "Link Shortener",
-  "name": "Shorten Link Generator",
+  "short_name": "MShortener",
+  "name": "MShortener - Shorten Link Generator",
   "icons": [
     {
       "src": "favicon.ico",
