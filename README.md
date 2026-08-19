@@ -2,6 +2,8 @@
 
 A simple and minimal link shortener with backup and restore
 
+> **Archived:** This is an old learning project and is no longer actively maintained. The live URL-shortening integration may not work in browsers because of third-party API CORS restrictions.
+
 ### :sparkles: Features
 
 - Generate a shorten link of an URL
